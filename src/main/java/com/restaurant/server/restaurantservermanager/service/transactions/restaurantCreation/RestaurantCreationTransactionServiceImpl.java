@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class TransactionServiceImpl implements RestaurantCreationTransactionService {
+public class RestaurantCreationTransactionServiceImpl implements RestaurantCreationTransactionService {
 
     @Autowired
     private UserService userService;

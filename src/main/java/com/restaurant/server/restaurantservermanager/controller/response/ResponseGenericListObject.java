@@ -1,11 +1,9 @@
-package com.restaurant.server.restaurantservermanager.controller;
+package com.restaurant.server.restaurantservermanager.controller.response;
 
 import java.util.List;
 
-public class ResponseGenericListObject<T> {
+public class ResponseGenericListObject<T> extends ResponseStatus {
     private List<T> data;
-    private boolean status;
-    private String reason;
 
     public List<T> getList() {
         return data;
@@ -15,32 +13,13 @@ public class ResponseGenericListObject<T> {
         this.data = list;
     }
 
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    public String getReason() {
-        return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-
     public ResponseGenericListObject(List<T> list, boolean status, String reason) {
+        super(status, reason);
         this.data = list;
-        this.status = status;
-        this.reason = reason;
     }
 
 
     public ResponseGenericListObject(boolean status, String reason) {
-        this.status = status;
-        this.reason = reason;
+        super(status, reason);
     }
 }

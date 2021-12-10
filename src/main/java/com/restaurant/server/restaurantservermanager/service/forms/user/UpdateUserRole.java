@@ -1,4 +1,4 @@
-package com.restaurant.server.restaurantservermanager.service.forms;
+package com.restaurant.server.restaurantservermanager.service.forms.user;
 
 import com.restaurant.server.restaurantservermanager.model.User;
 

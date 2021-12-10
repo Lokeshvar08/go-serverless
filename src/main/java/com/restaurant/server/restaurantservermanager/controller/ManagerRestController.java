@@ -9,11 +9,10 @@ import com.restaurant.server.restaurantservermanager.security.AuthenticatedUser;
 import com.restaurant.server.restaurantservermanager.service.DineService;
 import com.restaurant.server.restaurantservermanager.service.RestaurantService;
 import com.restaurant.server.restaurantservermanager.service.UserService;
-import com.restaurant.server.restaurantservermanager.service.forms.UpdateUserRole;
+import com.restaurant.server.restaurantservermanager.service.forms.user.UpdateUserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
 import java.util.HashMap;
 
 @RestController
@@ -103,8 +102,8 @@ public class ManagerRestController {
 
     @DeleteMapping("/employee/delete/{user}")
     public ResponseStatus deleteEmployee( @PathVariable String user) {
-        User auth = null;
-        String error = "";
+        User auth;
+        String error;
         try {
             auth = authenticatedUser.getAuthenticatedUserObject();
             userService.deleteUserByIdAndRestaurantByManager(Integer.parseInt(user), auth.getRestaurant());
@@ -117,7 +116,7 @@ public class ManagerRestController {
 
     @PostMapping("/dine/create")
     public ResponseStatus createDine() {
-        User auth = null;
+        User auth;
         String error = "";
 
         try {
@@ -134,7 +133,7 @@ public class ManagerRestController {
 
     @DeleteMapping("/dine/delete/{id}")
     public ResponseStatus deleteDine(@PathVariable String id) {
-        User auth = null;
+        User auth;
         String error = "";
 
         try {
@@ -151,7 +150,7 @@ public class ManagerRestController {
 
     @GetMapping("/dines")
     public ResponseStatus dines() {
-        User auth = null;
+        User auth;
         String error = "";
         try {
             auth = authenticatedUser.getAuthenticatedUserObject();
@@ -170,7 +169,7 @@ public class ManagerRestController {
 
     @GetMapping("/dines/unique-code")
     public ResponseStatus getRestaurantUniqueCode() {
-        User auth = null;
+        User auth;
         String error = "";
         try{
             auth = authenticatedUser.getAuthenticatedUserObject();

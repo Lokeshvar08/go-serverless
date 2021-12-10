@@ -6,12 +6,9 @@ import com.restaurant.server.restaurantservermanager.controller.response.Respons
 import com.restaurant.server.restaurantservermanager.model.User;
 import com.restaurant.server.restaurantservermanager.security.AuthenticatedUser;
 import com.restaurant.server.restaurantservermanager.service.UserService;
-import com.restaurant.server.restaurantservermanager.service.forms.UpdateUserRole;
+import com.restaurant.server.restaurantservermanager.service.forms.user.UpdateUserRole;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Locale;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -81,8 +78,8 @@ public class AdminRestController {
 
     @DeleteMapping("/employee/delete/{user}")
     public ResponseStatus deleteEmployee( @PathVariable String user) {
-        User auth = null;
-        String error = "";
+        User auth;
+        String error;
         try {
             auth = authenticatedUser.getAuthenticatedUserObject();
             userService.deleteUserByIdAndRestaurantByAdmin(Integer.parseInt(user), auth.getRestaurant());

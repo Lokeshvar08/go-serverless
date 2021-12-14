@@ -53,4 +53,12 @@ public class DineService {
     public Integer getActiveDineCountOfRestaurant( Restaurant restaurant) {
         return dineRepository.countDinesByRestaurantAndStatus( restaurant, true);
     }
+
+    public Dine getDineByNumberAndRestaurant(Integer number, Restaurant restaurant) {
+        return dineRepository.getDineByRestaurant(restaurant, number);
+    }
+
+    public void updateDine( Dine dine) {
+        dineRepository.save(dine);
+    }
 }

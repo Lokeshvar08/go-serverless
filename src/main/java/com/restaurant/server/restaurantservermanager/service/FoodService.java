@@ -7,6 +7,8 @@ import com.restaurant.server.restaurantservermanager.service.errors.ServiceError
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FoodService {
 
@@ -31,6 +33,10 @@ public class FoodService {
 
     public Food getFoodByIdAndRestaurant(Integer id, Restaurant restaurant) {
         return foodRepository.getFoodByIdAndRestaurant( id, restaurant);
+    }
+
+    public List<Food> getAvailableFoodsOfRestaurant(Restaurant restaurant) {
+        return foodRepository.getFoodsByRestaurantAndStatus(restaurant, true);
     }
 
     public void deleteFoodByKitchen( Integer id, Restaurant restaurant) throws ServiceErrorHandler {

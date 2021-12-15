@@ -10,6 +10,7 @@ import com.restaurant.server.restaurantservermanager.service.errors.ServiceError
 import com.restaurant.server.restaurantservermanager.service.forms.customer.OtpValidation;
 import com.restaurant.server.restaurantservermanager.service.forms.customer.SendMail;
 import com.restaurant.server.restaurantservermanager.service.forms.food.OrderFood;
+import com.restaurant.server.restaurantservermanager.service.forms.kitchen.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -280,6 +281,49 @@ public class CustomerRestController {
                             transaction
                     );
                     return new ResponseGenericListObject<>(transactionItemList, true, "success");
+                } else {
+                    request.getSession().invalidate();
+                    throw new ServiceErrorHandler("session not valid: dine or customer is null");
+                }
+
+            } else {
+                throw new ServiceErrorHandler("session not valid: no existing session");
+            }
+        } catch ( Exception e) {
+            return new ResponseStatus( false, String.valueOf(e));
+        }
+    }
+
+    @GetMapping("/checkout")
+    public ResponseStatus getInvoice(HttpServletRequest request) {
+        Dine dine = null;
+        Customer customer = null;
+        Transaction transaction = null;
+        try {
+            if( request.isRequestedSessionIdValid() ) {
+                dine = (Dine) request.getAttribute("dine");
+                customer = (Customer) request.getSession().getAttribute("customer");
+                transaction = (Transaction) request.getSession().getAttribute("transaction");
+                if( dine != null && customer != null) {
+                    List<TransactionItem> transactionItemList = transactionItemService.getOrderedFoods(
+                            transaction
+                    );
+                    List<Order> orders = new ArrayList<>();
+                    Integer transactionId = transaction.getId();
+                    transactionItemList.forEach( food -> {
+                        if( food.getStatus() == TransactionItem.Status.HAPPY_MEAL ) {
+                            orders.add(
+                                    new Order(
+                                            transactionId,
+                                            food.getId(),
+                                            food.getFood().getName(),
+                                            food.getQuantity(),
+                                            food.getQuantity() * food.getFood().getPrice()
+                                    )
+                            );
+                        }
+                    });
+                    return new ResponseGenericListObject<>(orders, true, "success");
                 } else {
                     request.getSession().invalidate();
                     throw new ServiceErrorHandler("session not valid: dine or customer is null");

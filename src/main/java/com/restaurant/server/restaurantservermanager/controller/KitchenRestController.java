@@ -179,7 +179,10 @@ public class KitchenRestController {
                 List<Order> orders = new ArrayList<>();
                 transactions.forEach( transaction -> {
                     transaction.getFoodItems().forEach( foodItem -> {
-                        if( foodItem.getStatus() != TransactionItem.Status.HAPPY_MEAL) {
+                        if(
+                                foodItem.getStatus() != TransactionItem.Status.HAPPY_MEAL
+                                && foodItem.getStatus() != TransactionItem.Status.NOT_ORDERED
+                        ) {
                             orders.add(
                                     new Order(
                                             transaction.getId(),

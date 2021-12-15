@@ -12,6 +12,7 @@ public class Order {
     private Integer dineNumber;
     private Integer dineId;
     private TransactionItem.Status status;
+    private Double total;
 
     public Order(Integer transaction,
                  Integer transactionItem,
@@ -29,6 +30,14 @@ public class Order {
         this.dineNumber = dineNumber;
         this.dineId = dineId;
         this.status = status;
+    }
+
+    public Order(Integer transaction, Integer transactionItem, String food, Integer quantity, Double total) {
+        this.transaction = transaction;
+        this.transactionItem = transactionItem;
+        this.food = food;
+        this.quantity = quantity;
+        this.total = total;
     }
 
     public Integer getTransaction() {
@@ -93,5 +102,13 @@ public class Order {
 
     public void setStatus(TransactionItem.Status status) {
         this.status = status;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
     }
 }

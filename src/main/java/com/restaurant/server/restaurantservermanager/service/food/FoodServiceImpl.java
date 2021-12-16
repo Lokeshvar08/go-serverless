@@ -44,6 +44,11 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
+    public List<Food> getFoodsOfRestaurant(Restaurant restaurant) {
+        return foodRepository.getFoodsByRestaurant(restaurant);
+    }
+
+    @Override
     public void deleteFoodByKitchen( Integer id, Restaurant restaurant) throws ServiceErrorHandler {
         int n = foodRepository.deleteFoodByKitchen( id, restaurant);
         if( n == 1) {

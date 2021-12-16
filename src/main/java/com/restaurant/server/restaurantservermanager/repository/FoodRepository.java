@@ -14,6 +14,8 @@ public interface FoodRepository extends JpaRepository<Food, Integer> {
 
     List<Food> getFoodsByRestaurantAndStatus( Restaurant restaurant, Boolean status);
 
+    List<Food> getFoodsByRestaurant(Restaurant restaurant);
+
     @Transactional
     @Modifying
     @Query("DELETE FROM Food f WHERE f.id=?1 AND f.restaurant=?2")

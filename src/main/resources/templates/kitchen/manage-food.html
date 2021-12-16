@@ -203,8 +203,21 @@ window.onload = onLoadFunc;
       const foodItems = res.list;
 
 
-console.log(document.querySelector("#list-all-foods").innerHtml)
-      //document.querySelector("#list-all-foods").innerHtml = "";
+      console.log(document.querySelector("#list-all-foods"))
+      document.querySelector("#list-all-foods").innerHTML = "";
+
+
+      let resOutput = "";
+      foodItems.forEach((el, i) => {
+        resOutput += `<tr class="table-active">
+              <th scope="row">${i+1}</th>
+              <td>${el.name}</td>
+              <td>${el.price}</td>
+              <td>button</td>
+            </tr>`
+      })
+
+      document.querySelector("#list-all-foods").innerHTML = resOutput;
  }
 
 

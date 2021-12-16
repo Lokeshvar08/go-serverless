@@ -33,7 +33,7 @@ public class TransactionItemServiceImpl implements TransactionItemService{
 
     @Override
     public List<TransactionItem> getOrderedFoods(Transaction transaction) {
-        return transactionItemRepository.getTransactionItemByTransaction(transaction);
+        return transactionItemRepository.getTransactionItemsByTransaction(transaction);
     }
 
     @Override

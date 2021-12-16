@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface TransactionItemRepository extends JpaRepository<TransactionItem, Integer> {
-    List<TransactionItem> getTransactionItemByTransaction(Transaction transaction);
+    List<TransactionItem> getTransactionItemsByTransaction(Transaction transaction);
     TransactionItem getTransactionItemByTransactionAndId(
             Transaction transaction,
             Integer transactionItemId);

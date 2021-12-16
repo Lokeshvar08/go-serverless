@@ -11,6 +11,6 @@ public interface FoodService {
     Food updateFood(Food food);
     Food getFoodByIdAndRestaurant(Integer id, Restaurant restaurant);
     List<Food> getAvailableFoodsOfRestaurant(Restaurant restaurant);
-    List<Food> getFoodsOfRestaurant(Restaurant restaurant);
+    List<Food> getNotAvailableFoodsOfRestaurant(Restaurant restaurant);
     void deleteFoodByKitchen( Integer id, Restaurant restaurant) throws ServiceErrorHandler;
 }

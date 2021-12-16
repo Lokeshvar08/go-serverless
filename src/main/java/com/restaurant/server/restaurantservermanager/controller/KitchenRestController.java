@@ -172,7 +172,7 @@ public class KitchenRestController {
         try {
             auth = authenticatedUser.getAuthenticatedUserObject();
             if( auth.getRole() == User.Role.ROLE_KITCHEN ) {
-                List<Food> foods = foodService.getFoodsOfRestaurant(auth.getRestaurant());
+                List<Food> foods = foodService.getNotAvailableFoodsOfRestaurant(auth.getRestaurant());
                 return new ResponseGenericListObject<>( foods, true, "success");
             }
         } catch ( Exception e) {

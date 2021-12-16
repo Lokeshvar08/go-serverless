@@ -44,8 +44,8 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
-    public List<Food> getFoodsOfRestaurant(Restaurant restaurant) {
-        return foodRepository.getFoodsByRestaurant(restaurant);
+    public List<Food> getNotAvailableFoodsOfRestaurant(Restaurant restaurant) {
+        return foodRepository.getFoodsByRestaurantAndStatus(restaurant, false);
     }
 
     @Override

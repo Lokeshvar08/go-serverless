@@ -117,7 +117,7 @@ public class HomeController {
 
     @GetMapping("/customer")
     public ModelAndView getCustomer(ModelAndView mv) {
-        mv.setViewName("customer/home");
+        mv.setViewName("customer/register");
         return mv;
     }
 
@@ -134,7 +134,7 @@ public class HomeController {
             if(dine != null ){
                 HttpSession session = request.getSession();
                 session.setAttribute("dine", dine);
-                mv.setViewName("customer/customer-launch");
+                mv.setViewName("customer/login");
                 mv.addObject("dine", dine);
                 return mv;
             }

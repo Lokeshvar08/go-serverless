@@ -39,11 +39,8 @@ public class AdminController {
         this.authenticatedUser = authenticatedUser;
     }
 
-
-
     @GetMapping("/home")
     public String home() {
-
         Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         System.out.println( ((UserDetails)user).getUsername());
         return "admin/admin";

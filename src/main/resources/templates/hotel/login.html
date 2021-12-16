@@ -4,18 +4,18 @@
 </head>
 <body>
 <style>
-  .form-body{
-    height: 90%;
-    padding: 20px;
-  }
-  .login-card{
-    padding: 20px;
-    margin: 5%;
-  }
-  .main{
-    height: 100%;
-    overflow: hidden;
-  }
+    .form-body{
+      height: 90%;
+      padding: 20px;
+    }
+    .login-card{
+      padding: 20px;
+      margin: 5%;
+    }
+    .main{
+      height: 100%;
+      overflow: hidden;
+    }
 </style>
 <style th:replace="fragments/nav :: nav-style"></style>
 <div class="main">
@@ -24,7 +24,7 @@
     <div class="col login-card card border-primary mb-3" style="max-width: 60%">
       <div class="card-body">
         <h4 class="card-title">Login</h4>
-        <form action="/login" method="POST">
+        <form>
           <fieldset>
             <div class="form-group">
               <label for="exampleSelect1" class="form-label mt-4">Role</label>
@@ -39,16 +39,14 @@
             </div>
             <div class="form-group">
               <label for="username" class="form-label mt-4">Username</label>
-              <input type="text" name="username" class="form-control" id="username" placeholder="Enter username">
+              <input type="text" class="form-control" id="username" placeholder="Enter hotel username">
             </div>
             <div class="form-group">
               <label for="exampleInputPassword1" class="form-label mt-4">Password</label>
-              <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
             </div>
-            <hr>
-            <p th:if="${loginError}" class="alert-danger">Wrong Username or Password</p>
-            <p th:if="${creation}" style="{color: black}" th:text="${creation}" class="alert-success"></p>
-            <br/>
+
+            <br />
             <div class="form-group">
               <button type="submit" class="btn btn-secondary">Login</button>
             </div>

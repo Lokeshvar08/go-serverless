@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/admin")
 public class AdminController {
 
-
     @Autowired
     private EmployeeCreation employeeCreation;
 

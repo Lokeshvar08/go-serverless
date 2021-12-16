@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="fragments/header :: head('cart')">
+</head>
+<body>
+<style>
+  .container{
+  padding-top: 5%;
+  padding-bottom: 5%;
+  }
+
+  .table-num{
+    text-align: center;
+  }
+
+   .price{
+    text-align: right;
+  }
+
+  .pay{
+  margin-top: 50px;
+  }
+</style>
+<style th:replace="fragments/nav :: nav-style"></style>
+<div class="main">
+  <nav th:replace="fragments/nav :: nav"></nav>
+  <div class="container main-content">
+    <div class="col">
+      <div class="row table-num">
+        <h2>table num: #4</h2>
+      </div>
+      <div class="row">
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th scope="col">Index</th>
+            <th scope="col">Food name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr class="table-active">
+            <th scope="row">1</th>
+            <td>Column content</td>
+            <td>Column content</td>
+            <td>Column content</td>
+          </tr>
+
+
+
+          <tr class="table-primary">
+            <th scope="row">2</th>
+            <td>Column content</td>
+            <td>Column content</td>
+            <td>Column content</td>
+          </tr>
+          <tr class="table-secondary">
+            <th scope="row">3</th>
+            <td>Column content</td>
+            <td>Column content</td>
+            <td>Column content</td>
+          </tr>
+          <tr class="table-success">
+            <th scope="row">4</th>
+            <td>Column content</td>
+            <td>Column content</td>
+            <td>Column content</td>
+          </tr>
+          <tr class="table-danger">
+            <th scope="row">5</th>
+            <td>Column content</td>
+            <td>Column content</td>
+            <td>Column content</td>
+          </tr>
+          <tr class="table-warning">
+            <th scope="row">6</th>
+            <td>Column content</td>
+            <td>Column content</td>
+            <td>Column content</td>
+          </tr>
+          <tr class="table-info">
+            <th scope="row">7</th>
+            <td>Column content</td>
+            <td>Column content</td>
+            <td>Column content</td>
+          </tr>
+          <tr class="table-light">
+            <th scope="row">8</th>
+            <td>Column content</td>
+            <td>Column content</td>
+            <td>Column content</td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+      <div class="row price">
+        <h2>total price: #400</h2>
+      </div>
+      <div class="row pay">
+        <button type="button" class="btn btn-dark">Pay with cash</button>
+        <button type="button" class="btn btn-success" style="margin-top: 15px">Pay with card</button>
+      </div>
+    </div>
+
+  </div>
+
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+</body>
+</html>

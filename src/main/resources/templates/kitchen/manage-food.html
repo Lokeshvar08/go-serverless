@@ -153,7 +153,7 @@
             </tr>
             </thead>
 
-            <tbody>
+            <tbody id="menu">
 
             <tr class="table-active">
               <td>Column content</td>
@@ -186,7 +186,11 @@
 </div>
 <script>
 const onLoadFunc = () => {
-console.log("on load")
+  getFoods();
+  getMenu();
+}
+
+const getFoods = ()=> {
 fetch("http://localhost:8080/api/kitchen/foods")
     .then(res => res.json())
     .then(res => {
@@ -196,30 +200,76 @@ fetch("http://localhost:8080/api/kitchen/foods")
     .catch(err => console.log(err))
 }
 
-window.onload = onLoadFunc;
+const getMenu = ()=> {
+fetch("http://localhost:8080/api/kitchen/menu")
+    .then(res => res.json())
+    .then(res => {
+      console.log(res);
+      menuRenderer(res);
+    })
+    .catch(err => console.log(err))
+}
+
+window.onload = onLoadFunc
+
+const menuRenderer = (res) => {
+      console.log("list all renderer");
+      const menuItems = res.list;
+
+      document.querySelector("#menu").innerHTML = "";
+
+      let resOutput = "";
+      foodItems.forEach((el, i) => {
+        resOutput += `<tr class="table-${i%2==0? 'active': 'secondary'}">
+              <th scope="row">${i+1}</th>
+              <td>${el.name}</td>
+              <td>${el.price}</td>
+              <td> <button onclick="modifyFoodItem(${el.id}, false)"class="btn btn-dark">Add</button></td>
+            </tr>`
+      })
+
+      document.querySelector("#menu").innerHTML = resOutput;
+ }
 
  const ListFoodsRenderer = (res) => {
       console.log("list all renderer");
       const foodItems = res.list;
 
-
       console.log(document.querySelector("#list-all-foods"))
       document.querySelector("#list-all-foods").innerHTML = "";
 
-
       let resOutput = "";
       foodItems.forEach((el, i) => {
-        resOutput += `<tr class="table-active">
+        resOutput += `<tr class="table-${i%2==0? 'active': 'secondary'}">
               <th scope="row">${i+1}</th>
               <td>${el.name}</td>
               <td>${el.price}</td>
-              <td>button</td>
+              <td> <button onclick="modifyFoodItem(${el.id}, true)"class="btn btn-dark">Add</button></td>
             </tr>`
       })
 
       document.querySelector("#list-all-foods").innerHTML = resOutput;
  }
 
+ const modifyFoodItem = (id, status) => {
+  console.log(id);
+  const url = "http://localhost:8080/api/kitchen/food-update-status";
+
+  fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+      body: JSON.stringify({id: id, status: status })
+  })
+      .then((res)=> res.json())
+      .then((res)=>{
+        console.log(res);
+        location.reload();
+      })
+      .catch(err => console.log(err))
+
+ }
 
   const addFood = () => {
 
@@ -244,6 +294,7 @@ window.onload = onLoadFunc;
       })
       .catch(err => console.log(err))
 
+      location.reload();
   }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>

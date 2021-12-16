@@ -40,160 +40,70 @@
       margin-left: 3px;
       margin-right: 3px;
     }
+
+    .container{
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      top-margin: 0 !important;
+    }
 </style>
 <style th:replace="fragments/nav :: nav-style"></style>
 <div class="main">
   <nav th:replace="fragments/nav :: nav"></nav>
-  <div class="container main-content">
-    <div class="row">
+  <div class="container main-content justify-content-center align-items-center">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">S.No</th>
+          <th scope="col">item name</th>
+          <th scope="col">table number</th>
+          <th scope="col">other comments</th>
+          <th scope="col">status</th>
+          <th scope="col">action</th>
+        </tr>
+      </thead>
 
-      <div class="col-3 item">
-        <div class="card mb-3">
-          <h3 class="card-header">#table number</h3>
+      <tbody>
+      <tr class="table-active">
+        <th scope="row">1</th>
+        <td>Column content</td>
+        <td>Column content</td>
+        <td>Column content</td>
+        <td>Column content</td>
+        <td>Column content</td>
+      </tr>
 
+      <tr class="table-active">
+        <th scope="row">1</th>
+        <td>Column content</td>
+        <td>Column content</td>
+        <td>Column content</td>
+        <td>Column content</td>
+        <td>Column content</td>
+      </tr>
 
-          <div class="card-body">
-            <ul class="list-group">
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                Cras justo odio
-                <span class="badge bg-primary rounded-pill">#q</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                Dapibus ac facilisis in ty
-                <span class="badge bg-primary rounded-pill">#q</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                Morbi leo risus
-                <span class="badge bg-primary rounded-pill">#q</span>
-              </li>
-            </ul>
-          </div>
+      <tr class="table-active">
+        <th scope="row">1</th>
+        <td>Column content</td>
+        <td>Column content</td>
+        <td>Column content</td>
+        <td>Column content</td>
+        <td>Column content</td>
+      </tr>
 
-          <div class="card-body">
-            <button type="button" class="btn btn-success">done</button>
-          </div>
+      <tr class="table-active">
+        <th scope="row">1</th>
+        <td>Column content</td>
+        <td>Column content</td>
+        <td>Column content</td>
+        <td>Column content</td>
+        <td>Column content</td>
+      </tr>
 
-        </div>
-      </div>
-
-      <div class="col-3 item">
-        <div class="card mb-3">
-          <h3 class="card-header">#table number</h3>
-
-
-          <div class="card-body">
-            <ul class="list-group">
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                Cras justo odio
-                <span class="badge bg-primary rounded-pill">#q</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                Dapibus ac facilisis in ty
-                <span class="badge bg-primary rounded-pill">#q</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                Morbi leo risus
-                <span class="badge bg-primary rounded-pill">#q</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="card-body">
-            <button type="button" class="btn btn-success">done</button>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="col-3 item">
-        <div class="card mb-3">
-          <h3 class="card-header">#table number</h3>
-
-
-          <div class="card-body">
-            <ul class="list-group">
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                Cras justo odio
-                <span class="badge bg-primary rounded-pill">#q</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                Dapibus ac facilisis in ty
-                <span class="badge bg-primary rounded-pill">#q</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                Morbi leo risus
-                <span class="badge bg-primary rounded-pill">#q</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="card-body">
-            <button type="button" class="btn btn-success">done</button>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="col-3 item">
-        <div class="card mb-3">
-          <h3 class="card-header">#table number</h3>
-
-
-          <div class="card-body">
-            <ul class="list-group">
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                Cras justo odio
-                <span class="badge bg-primary rounded-pill">#q</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                Dapibus ac facilisis in ty
-                <span class="badge bg-primary rounded-pill">#q</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                Morbi leo risus
-                <span class="badge bg-primary rounded-pill">#q</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="card-body">
-            <button type="button" class="btn btn-success">done</button>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="col-3 item">
-        <div class="card mb-3">
-          <h3 class="card-header">#table number</h3>
-
-
-          <div class="card-body">
-            <ul class="list-group">
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                Cras justo odio
-                <span class="badge bg-primary rounded-pill">#q</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                Dapibus ac facilisis in ty
-                <span class="badge bg-primary rounded-pill">#q</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                Morbi leo risus
-                <span class="badge bg-primary rounded-pill">#q</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="card-body">
-            <button type="button" class="btn btn-success">done</button>
-          </div>
-
-        </div>
-      </div>
-
-
-    </div>
+      </tbody>
+    </table>
   </div>
 
 </div>

@@ -29,4 +29,9 @@ public class KitchenController {
         return "kitchen/manage-food";
     }
 
+    @GetMapping("/orders")
+    public String getOrder() {
+        return "kitchen/orders";
+    }
+
 }

@@ -87,7 +87,7 @@
             </tr>
             </thead>
 
-            <tbody>
+            <tbody id="list-all-foods">
             <tr class="table-active">
               <th scope="row">1</th>
               <td>Column content</td>
@@ -148,57 +148,66 @@
 
               <th scope="col">item name</th>
               <th scope="col">price</th>
+              <th scope="col">action</th>
 
             </tr>
             </thead>
 
             <tbody>
+
             <tr class="table-active">
               <td>Column content</td>
               <td>Column content</td>
+              <td>Column content</td>
             </tr>
-
             <tr class="table-primary">
+              <td>Column content</td>
               <td>Column content</td>
               <td>Column content</td>
             </tr>
             <tr class="table-secondary">
               <td>Column content</td>
               <td>Column content</td>
+              <td>Column content</td>
             </tr>
             <tr class="table-success">
               <td>Column content</td>
               <td>Column content</td>
-            </tr>
-            <tr class="table-danger">
-              <td>Column content</td>
               <td>Column content</td>
             </tr>
-            <tr class="table-warning">
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
-            <tr class="table-info">
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
-            <tr class="table-light">
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
+
 
             </tbody>
           </table>
         </div>
-
       </div>
-
     </div>
-
   </div>
-
 </div>
 <script>
+const onLoadFunc = () => {
+console.log("on load")
+fetch("http://localhost:8080/api/kitchen/foods")
+    .then(res => res.json())
+    .then(res => {
+      console.log(res);
+      ListFoodsRenderer(res);
+    })
+    .catch(err => console.log(err))
+}
+
+window.onload = onLoadFunc;
+
+ const ListFoodsRenderer = (res) => {
+      console.log("list all renderer");
+      const foodItems = res.list;
+
+
+console.log(document.querySelector("#list-all-foods").innerHtml)
+      //document.querySelector("#list-all-foods").innerHtml = "";
+ }
+
+
   const addFood = () => {
 
     const foodNameEl = document.querySelector("#food-name");

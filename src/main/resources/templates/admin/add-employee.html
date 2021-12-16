@@ -28,6 +28,10 @@
   padding: 20px;
   margin: 5%;
   }
+  .main{
+
+
+  }
 </style>
 <style th:replace="fragments/nav :: nav-style"></style>
 <nav th:replace="fragments/nav :: nav"></nav>
@@ -36,19 +40,36 @@
   <div class="form-body row justify-content-center align-items-center">
     <div class="col login-card card border-dark mb-3" style="max-width: 60%">
       <div class="card-body">
-        <h4 class="card-title">Add Food</h4>
-        <form>
+        <h4 class="card-title">Add Employee</h4>
+        <form method="post" action="/admin/save-employee">
           <fieldset>
             <div class="form-group">
-              <label for="food-name" class="form-label mt-4">food-name</label>
-              <input type="text" name ="food-name" class="form-control" id="food-name" placeholder="food-name">
+              <label for="exampleSelect1" class="form-label mt-4">Role</label>
+              <select name="role" class="form-select" id="exampleSelect1">
+
+                <option>Manager</option>
+                <option>Kitchen</option>
+                <option>Cashier</option>
+
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="username" class="form-label mt-4">Username</label>
+              <input type="text" name ="username" class="form-control" id="username" placeholder="Enter hotel username">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="form-label mt-4">Password</label>
+              <input type="password" name ="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
             </div>
 
             <div class="form-group">
-              <label for="price" class="form-label mt-4">price</label>
-              <input type="password" name ="price" class="form-control" id="price" placeholder="price">
+              <label for="name" class="form-label mt-4">Full name</label>
+              <input type="text" name ="name" class="form-control" id="name" placeholder="Enter full name">
             </div>
-
+            <div class="form-group">
+              <label for="phoneNum" class="form-label mt-4">Phone Number</label>
+              <input type="text" name ="phone" class="form-control" id="phoneNum" placeholder="Enter phone number">
+            </div>
 
             <br />
             <div class="form-group">

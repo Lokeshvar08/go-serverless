@@ -71,17 +71,17 @@ public class HomeController {
 
     @RequestMapping("/")
     public String home() {
-        return "home";
+        return "index";
     }
 
     @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
     public String loginPage() {
-        return "home/login";
+        return "auth/login";
     }
 
     @RequestMapping(value = {"/login-error"}, method = RequestMethod.GET)
     public ModelAndView loginPageError(ModelAndView mv) {
-        mv.setViewName("home/login");
+        mv.setViewName("auth/login");
         mv.addObject("loginError", true);
         return mv;
     }
@@ -89,7 +89,7 @@ public class HomeController {
     @RequestMapping(value = {"/register"}, method = RequestMethod.GET)
     public String registerForm() {
         System.out.println("inside register");
-        return "home/register";
+        return "auth/register";
     }
 
     @RequestMapping(value = {"/register"}, method = RequestMethod.POST)
@@ -106,11 +106,11 @@ public class HomeController {
             );
             mv.setStatus(HttpStatus.CREATED);
             mv.addObject("creation","Restaurant Creation Successful! Login Here...");
-            mv.setViewName("home/login");
+            mv.setViewName("auth/login");
         } catch (Exception e) {
             mv.setStatus(HttpStatus.BAD_REQUEST);
             mv.addObject("creation","failed");
-            mv.setViewName("home/register");
+            mv.setViewName("auth/register");
         }
         return mv;
     }

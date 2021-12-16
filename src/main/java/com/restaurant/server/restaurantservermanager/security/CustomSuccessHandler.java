@@ -24,13 +24,13 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         for (GrantedAuthority grantedAuthority : authorities) {
             if ( grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
-                redirectUrl = "/admin/home";
+                redirectUrl = "/admin/add-employee";
                 break;
             } else if ( grantedAuthority.getAuthority().equals("ROLE_MANAGER")) {
-                redirectUrl = "/manager/home";
+                redirectUrl = "/manager/create-employee";
                 break;
             } else if( grantedAuthority.getAuthority().equals("ROLE_KITCHEN")) {
-                redirectUrl = "/kitchen/home";
+                redirectUrl = "/kitchen/manage-food";
                 break;
             } else {
                 redirectUrl = "/cashier/home";

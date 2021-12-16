@@ -49,8 +49,8 @@ public class AdminController {
         return "admin/admin";
     }
 
-    @GetMapping("/create-employee")
-    public String createEmployee(ModelAndView mv) {
+    @GetMapping("/add-employee")
+    public String createEmployee() {
         return "admin/add-employee";
     }
 

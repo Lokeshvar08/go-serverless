@@ -44,7 +44,7 @@ public class ManagerController {
 
     @GetMapping("/create-employee")
     public String createEmployee(ModelAndView mv) {
-        return "manager/add-employee";
+        return "manager/add-cooks";
     }
 
     @PostMapping("/save-employee")

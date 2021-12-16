@@ -24,9 +24,9 @@ public class KitchenController {
         this.authenticatedUser = authenticatedUser;
     }
 
-    @GetMapping("/home")
+    @GetMapping("/manage-food")
     public String home() {
-        return "kitchen/home";
+        return "kitchen/manage-food";
     }
 
 }

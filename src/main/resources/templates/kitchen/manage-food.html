@@ -45,118 +45,164 @@
       margin-left: 3px;
       margin-right: 3px;
     }
+
+    add-card{
+      padding: 2%;
+      display: flex;
+      flex-direction: row;
+    }
 </style>
 <style th:replace="fragments/nav :: nav-style"></style>
 <div class="main">
   <nav th:replace="fragments/nav :: nav"></nav>
   <div class="container main-content">
-    <div class="row">
-
-      <div class="col-3 item">
-        <div class="card mb-3">
-          <h3 class="card-header">#food name</h3>
-          <div class="card-body">
-            <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/gettyimages-1036880806.jpg?crop=0.6666666666666666xw:1xh;center,top&resize=640:*" />
+    <div class="col gx-5">
+      <div class="row add-card card" style="display: flex; flex-direction: row; padding: 1%">
+        <div class="col-4">
+          <div class="form-group">
+            <input type="text" class="form-control" id="food-name" placeholder="food name">
           </div>
-
-          <div class="card-body">
-            <h5 class="card-text">price: #$56</h5>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            <input type="text" class="form-control" id="price" placeholder="price">
           </div>
-
-          <div class="card-body">
-            <div class="form-check form-switch">
-              <label class="form-check-label" for="available">#available</label>
-              <input class="form-check-input" type="checkbox" id="available">
-            </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group" style="display: flex; justify-content: center;">
+            <button class="btn btn-dark" onclick="addFood()">Add Food</button>
           </div>
-
         </div>
       </div>
-      <div class="col-3 item">
-        <div class="card mb-3">
-          <h3 class="card-header">#food name</h3>
-          <div class="card-body">
-            <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/gettyimages-1036880806.jpg?crop=0.6666666666666666xw:1xh;center,top&resize=640:*" />
-          </div>
 
-          <div class="card-body">
-            <h5 class="card-text">price: #$56</h5>
-          </div>
+      <div class="row gx-5" style="margin-top: 20px;">
+        <div class="col-6">
+          <table class="table table-hover">
+            <thead>
+            <tr>
+              <th scope="col">S.No</th>
+              <th scope="col">item name</th>
+              <th scope="col">price</th>
+              <th scope="col">add</th>
+            </tr>
+            </thead>
 
-          <div class="card-body">
-            <div class="form-check form-switch">
-              <label class="form-check-label" for="available">#available</label>
-              <input class="form-check-input" type="checkbox" id="available">
-            </div>
-          </div>
+            <tbody>
+            <tr class="table-active">
+              <th scope="row">1</th>
+              <td>Column content</td>
+              <td>Column content</td>
+              <td>Column content</td>
+            </tr>
 
+            <tr class="table-primary">
+              <th scope="row">2</th>
+              <td>Column content</td>
+              <td>Column content</td>
+              <td>Column content</td>
+            </tr>
+            <tr class="table-secondary">
+              <th scope="row">3</th>
+              <td>Column content</td>
+              <td>Column content</td>
+              <td>Column content</td>
+            </tr>
+            <tr class="table-success">
+              <th scope="row">4</th>
+              <td>Column content</td>
+              <td>Column content</td>
+              <td>Column content</td>
+            </tr>
+            <tr class="table-danger">
+              <th scope="row">5</th>
+              <td>Column content</td>
+              <td>Column content</td>
+              <td>Column content</td>
+            </tr>
+            <tr class="table-warning">
+              <th scope="row">6</th>
+              <td>Column content</td>
+              <td>Column content</td>
+              <td>Column content</td>
+            </tr>
+            <tr class="table-info">
+              <th scope="row">7</th>
+              <td>Column content</td>
+              <td>Column content</td>
+              <td>Column content</td>
+            </tr>
+            <tr class="table-light">
+              <th scope="row">8</th>
+              <td>Column content</td>
+              <td>Column content</td>
+              <td>Column content</td>
+            </tr>
+
+            </tbody>
+          </table>
         </div>
-      </div>
-      <div class="col-3 item">
-        <div class="card mb-3">
-          <h3 class="card-header">#food name</h3>
-          <div class="card-body">
-            <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/gettyimages-1036880806.jpg?crop=0.6666666666666666xw:1xh;center,top&resize=640:*" />
-          </div>
+        <div class="col-6">
+          <table class="table table-hover">
+            <thead>
+            <tr>
 
-          <div class="card-body">
-            <h5 class="card-text">price: #$56</h5>
-          </div>
+              <th scope="col">item name</th>
+              <th scope="col">price</th>
 
-          <div class="card-body">
-            <div class="form-check form-switch">
-              <label class="form-check-label" for="available">#available</label>
-              <input class="form-check-input" type="checkbox" id="available">
-            </div>
-          </div>
+            </tr>
+            </thead>
 
+            <tbody>
+            <tr class="table-active">
+              <td>Column content</td>
+              <td>Column content</td>
+            </tr>
+
+            <tr class="table-primary">
+              <td>Column content</td>
+              <td>Column content</td>
+            </tr>
+            <tr class="table-secondary">
+              <td>Column content</td>
+              <td>Column content</td>
+            </tr>
+            <tr class="table-success">
+              <td>Column content</td>
+              <td>Column content</td>
+            </tr>
+            <tr class="table-danger">
+              <td>Column content</td>
+              <td>Column content</td>
+            </tr>
+            <tr class="table-warning">
+              <td>Column content</td>
+              <td>Column content</td>
+            </tr>
+            <tr class="table-info">
+              <td>Column content</td>
+              <td>Column content</td>
+            </tr>
+            <tr class="table-light">
+              <td>Column content</td>
+              <td>Column content</td>
+            </tr>
+
+            </tbody>
+          </table>
         </div>
-      </div>
-      <div class="col-3 item">
-        <div class="card mb-3">
-          <h3 class="card-header">#food name</h3>
-          <div class="card-body">
-            <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/gettyimages-1036880806.jpg?crop=0.6666666666666666xw:1xh;center,top&resize=640:*" />
-          </div>
 
-          <div class="card-body">
-            <h5 class="card-text">price: #$56</h5>
-          </div>
-
-          <div class="card-body">
-            <div class="form-check form-switch">
-              <label class="form-check-label" for="available">#available</label>
-              <input class="form-check-input" type="checkbox" id="available">
-            </div>
-          </div>
-
-        </div>
-      </div>
-      <div class="col-3 item">
-        <div class="card mb-3">
-          <h3 class="card-header">#food name</h3>
-          <div class="card-body">
-            <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/gettyimages-1036880806.jpg?crop=0.6666666666666666xw:1xh;center,top&resize=640:*" />
-          </div>
-
-          <div class="card-body">
-            <h5 class="card-text">price: #$56</h5>
-          </div>
-
-          <div class="card-body">
-            <div class="form-check form-switch">
-              <label class="form-check-label" for="available">#available</label>
-              <input class="form-check-input" type="checkbox" id="available">
-            </div>
-          </div>
-
-        </div>
       </div>
 
     </div>
+
   </div>
 
 </div>
+<script>
+  const addFood = () => {
+    console.log("btn clicked!")
+  }
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 </body>

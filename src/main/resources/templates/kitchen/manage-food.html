@@ -65,7 +65,7 @@
         </div>
         <div class="col-4">
           <div class="form-group">
-            <input type="text" class="form-control" id="price" placeholder="price">
+            <input type="text" class="form-control" id="food-price" placeholder="price">
           </div>
         </div>
         <div class="col-4">
@@ -200,7 +200,28 @@
 </div>
 <script>
   const addFood = () => {
-    console.log("btn clicked!")
+
+    const foodNameEl = document.querySelector("#food-name");
+    const foodPriceEl = document.querySelector("#food-price");
+
+    console.log({name: foodNameEl.value, price:foodPriceEl.value });
+
+    fetch("http://localhost:8080/api/kitchen/food-create", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+      body: JSON.stringify({name: foodNameEl.value, price:foodPriceEl.value })
+  })
+      .then((res)=> res.json())
+      .then((res)=>{
+        console.log(res);
+
+        foodNameEl.value = "";
+        foodPriceEl.value = "";
+      })
+      .catch(err => console.log(err))
+
   }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>

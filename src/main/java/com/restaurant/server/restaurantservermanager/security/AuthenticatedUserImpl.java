@@ -1,7 +1,7 @@
 package com.restaurant.server.restaurantservermanager.security;
 
 import com.restaurant.server.restaurantservermanager.model.User;
-import com.restaurant.server.restaurantservermanager.service.UserService;
+import com.restaurant.server.restaurantservermanager.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;

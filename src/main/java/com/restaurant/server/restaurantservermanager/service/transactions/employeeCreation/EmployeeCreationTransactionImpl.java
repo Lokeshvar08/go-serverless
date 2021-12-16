@@ -2,8 +2,8 @@ package com.restaurant.server.restaurantservermanager.service.transactions.emplo
 
 import com.restaurant.server.restaurantservermanager.model.Restaurant;
 import com.restaurant.server.restaurantservermanager.model.User;
-import com.restaurant.server.restaurantservermanager.service.RestaurantService;
-import com.restaurant.server.restaurantservermanager.service.UserService;
+import com.restaurant.server.restaurantservermanager.service.restaurant.RestaurantService;
+import com.restaurant.server.restaurantservermanager.service.user.UserService;
 import com.restaurant.server.restaurantservermanager.service.errors.ServiceErrorHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

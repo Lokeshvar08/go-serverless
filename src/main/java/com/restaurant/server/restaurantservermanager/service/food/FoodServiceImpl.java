@@ -1,4 +1,4 @@
-package com.restaurant.server.restaurantservermanager.service;
+package com.restaurant.server.restaurantservermanager.service.food;
 
 import com.restaurant.server.restaurantservermanager.model.Food;
 import com.restaurant.server.restaurantservermanager.model.Restaurant;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class FoodService {
+public class FoodServiceImpl implements FoodService {
 
     @Autowired
     private FoodRepository foodRepository;
@@ -23,22 +23,27 @@ public class FoodService {
         this.foodRepository = foodRepository;
     }
 
+    @Override
     public Food createFood(Food food) {
         return foodRepository.save(food);
     }
 
+    @Override
     public Food updateFood(Food food) {
         return foodRepository.save(food);
     }
 
+    @Override
     public Food getFoodByIdAndRestaurant(Integer id, Restaurant restaurant) {
         return foodRepository.getFoodByIdAndRestaurant( id, restaurant);
     }
 
+    @Override
     public List<Food> getAvailableFoodsOfRestaurant(Restaurant restaurant) {
         return foodRepository.getFoodsByRestaurantAndStatus(restaurant, true);
     }
 
+    @Override
     public void deleteFoodByKitchen( Integer id, Restaurant restaurant) throws ServiceErrorHandler {
         int n = foodRepository.deleteFoodByKitchen( id, restaurant);
         if( n == 1) {

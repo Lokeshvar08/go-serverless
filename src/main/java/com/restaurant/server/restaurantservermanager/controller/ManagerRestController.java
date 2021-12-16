@@ -6,9 +6,9 @@ import com.restaurant.server.restaurantservermanager.controller.response.Respons
 import com.restaurant.server.restaurantservermanager.controller.response.ResponseStatus;
 import com.restaurant.server.restaurantservermanager.model.User;
 import com.restaurant.server.restaurantservermanager.security.AuthenticatedUser;
-import com.restaurant.server.restaurantservermanager.service.DineService;
-import com.restaurant.server.restaurantservermanager.service.RestaurantService;
-import com.restaurant.server.restaurantservermanager.service.UserService;
+import com.restaurant.server.restaurantservermanager.service.dine.DineService;
+import com.restaurant.server.restaurantservermanager.service.restaurant.RestaurantService;
+import com.restaurant.server.restaurantservermanager.service.user.UserService;
 import com.restaurant.server.restaurantservermanager.service.forms.user.UpdateUserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -6,18 +6,26 @@ import com.restaurant.server.restaurantservermanager.controller.response.Respons
 
 import com.restaurant.server.restaurantservermanager.model.*;
 import com.restaurant.server.restaurantservermanager.service.*;
+import com.restaurant.server.restaurantservermanager.service.customer.CustomerService;
+import com.restaurant.server.restaurantservermanager.service.dine.DineService;
 import com.restaurant.server.restaurantservermanager.service.errors.ServiceErrorHandler;
+import com.restaurant.server.restaurantservermanager.service.food.FoodService;
 import com.restaurant.server.restaurantservermanager.service.forms.customer.OtpValidation;
 import com.restaurant.server.restaurantservermanager.service.forms.customer.SendMail;
 import com.restaurant.server.restaurantservermanager.service.forms.food.OrderFood;
 import com.restaurant.server.restaurantservermanager.service.forms.kitchen.Order;
+import com.restaurant.server.restaurantservermanager.service.transaction.TransactionItemService;
+import com.restaurant.server.restaurantservermanager.service.transaction.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 
@@ -42,6 +50,17 @@ public class CustomerRestController {
 
     @Autowired
     private TransactionItemService transactionItemService;
+
+    @Autowired
+    private PaytmDetails paytmDetails;
+
+    public PaytmDetails getPaytmDetails() {
+        return paytmDetails;
+    }
+
+    public void setPaytmDetails(PaytmDetails paytmDetails) {
+        this.paytmDetails = paytmDetails;
+    }
 
     public MailSenderService getMailSenderService() {
         return mailSenderService;
@@ -337,4 +356,42 @@ public class CustomerRestController {
         }
     }
 
+    @PostMapping("/pay-amount")
+    public void payAmount(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Dine dine = null;
+        Customer customer = null;
+        Transaction transaction = null;
+        try {
+            if( request.isRequestedSessionIdValid() ) {
+                dine = (Dine) request.getAttribute("dine");
+                customer = (Customer) request.getSession().getAttribute("customer");
+                transaction = (Transaction) request.getSession().getAttribute("transaction");
+                if( dine != null && customer != null) {
+                    List<TransactionItem> transactionItemList = transactionItemService.getOrderedFoods(
+                            transaction
+                    );
+                    Double total = 0.00;
+                    for( TransactionItem item: transactionItemList) {
+                        if( item.getStatus() == TransactionItem.Status.HAPPY_MEAL) {
+                            total += item.getQuantity().doubleValue() * item.getFood().getPrice();
+                        }
+                    }
+                    TreeMap<String, String> parameters = new TreeMap<>(paytmDetails.getDetails());
+                    parameters.put("MOBILE_NO", "9790556185");
+                    parameters.put("ORDER_ID", transaction.getId().toString());
+                    parameters.put("TXN_AMOUNT", total.toString());
+                    parameters.put("CUST_ID", customer.getEmail());
+                    response.sendRedirect(paytmDetails.getPaytmUrl());
+                } else {
+                    request.getSession().invalidate();
+                    throw new ServiceErrorHandler("session not valid: dine or customer is null");
+                }
+
+            } else {
+                throw new ServiceErrorHandler("session not valid: no existing session");
+            }
+        } catch ( Exception e) {
+            response.sendRedirect("/customer");
+        }
+    }
 }

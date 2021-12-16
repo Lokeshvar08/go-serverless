@@ -1,4 +1,4 @@
-package com.restaurant.server.restaurantservermanager.service;
+package com.restaurant.server.restaurantservermanager.service.transaction;
 
 import com.restaurant.server.restaurantservermanager.model.Customer;
 import com.restaurant.server.restaurantservermanager.model.Dine;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class TransactionService {
+public class TransactionServiceImpl implements TransactionService {
 
     @Autowired
     private TransactionRepository transactionRepository;
@@ -24,10 +24,12 @@ public class TransactionService {
         this.transactionRepository = transactionRepository;
     }
 
+    @Override
     public Transaction saveTransaction(Transaction transaction) {
         return transactionRepository.save(transaction);
     }
 
+    @Override
     public Transaction getOrCreateTransaction(Customer customer, Dine dine) {
         Transaction transaction = transactionRepository.getTransactionByDineAndCustomerAndStatus(
                 dine,
@@ -46,10 +48,12 @@ public class TransactionService {
         return transaction;
     }
 
+    @Override
     public Transaction getTransactionByKitchen(Integer id, Restaurant restaurant, Boolean status ) {
         return transactionRepository.getTransactionByIdAndRestaurantAndStatus(id, restaurant, status);
     }
 
+    @Override
     public List<Transaction> getTransactionsByKitchen(Restaurant restaurant, Boolean status) {
         return transactionRepository.getTransactionsByRestaurantAndStatus(restaurant, status);
     }

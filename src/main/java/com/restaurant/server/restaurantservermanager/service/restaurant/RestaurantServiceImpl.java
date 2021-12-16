@@ -1,4 +1,4 @@
-package com.restaurant.server.restaurantservermanager.service;
+package com.restaurant.server.restaurantservermanager.service.restaurant;
 
 import com.restaurant.server.restaurantservermanager.model.Restaurant;
 import com.restaurant.server.restaurantservermanager.model.User;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Random;
 
 @Service
-public class RestaurantService {
+public class RestaurantServiceImpl implements RestaurantService {
 
     @Autowired
     private RestaurantRepository restaurantRepository;
@@ -24,10 +24,12 @@ public class RestaurantService {
         this.restaurantRepository = restaurantRepository;
     }
 
+    @Override
     public void createRestaurant(Restaurant restaurant) {
         restaurantRepository.save(restaurant);
     }
 
+    @Override
     public void updateRestaurantWithUser(Restaurant restaurant, User user) {
         List<User> employees = restaurant.getEmployees();
         if( employees == null ) {
@@ -38,6 +40,7 @@ public class RestaurantService {
         restaurantRepository.save(restaurant);
     }
 
+    @Override
     public Integer generateRandomIdRestaurant(Restaurant restaurant){
         Random random = new Random();
         Integer code = Integer.parseInt(String.format("%04d", random.nextInt(10000)));

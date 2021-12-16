@@ -1,8 +1,9 @@
-package com.restaurant.server.restaurantservermanager.service;
+package com.restaurant.server.restaurantservermanager.service.dine;
 
 import com.restaurant.server.restaurantservermanager.model.Dine;
 import com.restaurant.server.restaurantservermanager.model.Restaurant;
 import com.restaurant.server.restaurantservermanager.repository.DineRepository;
+import com.restaurant.server.restaurantservermanager.service.dine.DineService;
 import com.restaurant.server.restaurantservermanager.service.errors.ServiceErrorHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class DineService {
+public class DineServiceImpl implements DineService {
 
     @Autowired
     private DineRepository dineRepository;
@@ -23,7 +24,7 @@ public class DineService {
         this.dineRepository = dineRepository;
     }
 
-    //TODO: BUG dine number is not updated properly
+    @Override
     public void createDineInRestaurant(Restaurant restaurant) {
         int count = getDineCountOfRestaurant(restaurant);
         System.out.println("current table count: " + count);
@@ -35,10 +36,12 @@ public class DineService {
         System.out.println("updated table count: " + dine.getNumber());
     }
 
+    @Override
     public List<Dine> getAllDinesOfRestaurant(Restaurant restaurant) {
         return dineRepository.getDinesByRestaurant(restaurant);
     }
 
+    @Override
     public void deleteDineInRestaurant(Integer id, Restaurant restaurant) throws ServiceErrorHandler {
         int n = dineRepository.deleteByIdAndRestaurant( id, restaurant);
         if( n != 1 ) {
@@ -46,18 +49,22 @@ public class DineService {
         }
     }
 
+    @Override
     public Integer getDineCountOfRestaurant(Restaurant restaurant) {
         return dineRepository.countDinesByRestaurant(restaurant);
     }
 
+    @Override
     public Integer getActiveDineCountOfRestaurant( Restaurant restaurant) {
         return dineRepository.countDinesByRestaurantAndStatus( restaurant, true);
     }
 
+    @Override
     public Dine getDineByNumberAndRestaurant(Integer number, Restaurant restaurant) {
         return dineRepository.getDineByRestaurant(restaurant, number);
     }
 
+    @Override
     public void updateDine( Dine dine) {
         dineRepository.save(dine);
     }

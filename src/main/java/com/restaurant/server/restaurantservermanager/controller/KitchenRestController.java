@@ -181,6 +181,22 @@ public class KitchenRestController {
         return new ResponseStatus(false, error);
     }
 
+    @GetMapping("/menu")
+    public ResponseStatus todayMenu() {
+        User auth;
+        String error = "unable to get the orders";
+        try {
+            auth = authenticatedUser.getAuthenticatedUserObject();
+            if( auth.getRole() == User.Role.ROLE_KITCHEN ) {
+                List<Food> foods = foodService.getAvailableFoodsOfRestaurant(auth.getRestaurant());
+                return new ResponseGenericListObject<>( foods, true, "success");
+            }
+        } catch ( Exception e) {
+            error = String.valueOf(e);
+        }
+        return new ResponseStatus(false, error);
+    }
+
     @GetMapping("/orders")
     public ResponseStatus getOrdersOfKitchen() {
         User auth;

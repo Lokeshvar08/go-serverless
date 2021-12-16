@@ -219,12 +219,12 @@ const menuRenderer = (res) => {
       document.querySelector("#menu").innerHTML = "";
 
       let resOutput = "";
-      foodItems.forEach((el, i) => {
+      menuItems.forEach((el, i) => {
         resOutput += `<tr class="table-${i%2==0? 'active': 'secondary'}">
               <th scope="row">${i+1}</th>
               <td>${el.name}</td>
               <td>${el.price}</td>
-              <td> <button onclick="modifyFoodItem(${el.id}, false)"class="btn btn-dark">Add</button></td>
+              <td> <button onclick="modifyFoodItem(${el.id}, false)"class="btn btn-dark">remove</button></td>
             </tr>`
       })
 

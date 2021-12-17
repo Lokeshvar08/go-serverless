@@ -51,17 +51,6 @@ public class CustomerRestController {
     @Autowired
     private TransactionItemService transactionItemService;
 
-    @Autowired
-    private PaytmDetails paytmDetails;
-
-    public PaytmDetails getPaytmDetails() {
-        return paytmDetails;
-    }
-
-    public void setPaytmDetails(PaytmDetails paytmDetails) {
-        this.paytmDetails = paytmDetails;
-    }
-
     public MailSenderService getMailSenderService() {
         return mailSenderService;
     }
@@ -374,6 +363,7 @@ public class CustomerRestController {
                 if( dine != null && customer != null) {
                     transaction.setStatus(false);
                     dine.setStatus(true);
+                    dine.setOtp(null);
                     transactionService.saveTransaction(transaction);
                     dineService.updateDine(dine);
                     request.getSession().removeAttribute("transaction");
@@ -389,45 +379,6 @@ public class CustomerRestController {
             }
         } catch ( Exception e) {
             return new ResponseStatus( false, String.valueOf(e));
-        }
-    }
-
-    @PostMapping("/pay-amount")
-    public void payAmount(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Dine dine = null;
-        Customer customer = null;
-        Transaction transaction = null;
-        try {
-            if( request.isRequestedSessionIdValid() ) {
-                dine = (Dine) request.getAttribute("dine");
-                customer = (Customer) request.getSession().getAttribute("customer");
-                transaction = (Transaction) request.getSession().getAttribute("transaction");
-                if( dine != null && customer != null) {
-                    List<TransactionItem> transactionItemList = transactionItemService.getOrderedFoods(
-                            transaction
-                    );
-                    Double total = 0.00;
-                    for( TransactionItem item: transactionItemList) {
-                        if( item.getStatus() == TransactionItem.Status.HAPPY_MEAL) {
-                            total += item.getQuantity().doubleValue() * item.getFood().getPrice();
-                        }
-                    }
-                    TreeMap<String, String> parameters = new TreeMap<>(paytmDetails.getDetails());
-                    parameters.put("MOBILE_NO", "9790556185");
-                    parameters.put("ORDER_ID", transaction.getId().toString());
-                    parameters.put("TXN_AMOUNT", total.toString());
-                    parameters.put("CUST_ID", customer.getEmail());
-                    response.sendRedirect(paytmDetails.getPaytmUrl());
-                } else {
-                    request.getSession().invalidate();
-                    throw new ServiceErrorHandler("session not valid: dine or customer is null");
-                }
-
-            } else {
-                throw new ServiceErrorHandler("session not valid: no existing session");
-            }
-        } catch ( Exception e) {
-            response.sendRedirect("/customer");
         }
     }
 }

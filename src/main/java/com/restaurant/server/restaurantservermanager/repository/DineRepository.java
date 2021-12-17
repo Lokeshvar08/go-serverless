@@ -21,7 +21,7 @@ public interface DineRepository extends JpaRepository<Dine, Integer> {
     @Query("DELETE FROM Dine d WHERE d.id=?1 AND d.restaurant=?2")
     Integer deleteByIdAndRestaurant( Integer id, Restaurant restaurant);
 
-    @Query("FROM Dine d WHERE d.restaurant=?1 AND d.number=?2")
-    Dine getDineByRestaurant( Restaurant restaurant, Integer number);
+    @Query("FROM Dine d WHERE d.restaurant=?1 AND d.number=?2 AND d.status=?3")
+    Dine getDineByRestaurant( Restaurant restaurant, Integer number, Boolean status);
 
 }

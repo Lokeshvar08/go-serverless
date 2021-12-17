@@ -12,6 +12,6 @@ public interface DineService {
     void deleteDineInRestaurant(Integer id, Restaurant restaurant) throws ServiceErrorHandler;
     Integer getDineCountOfRestaurant(Restaurant restaurant);
     Integer getActiveDineCountOfRestaurant( Restaurant restaurant);
-    Dine getDineByNumberAndRestaurant(Integer number, Restaurant restaurant);
+    Dine getAvailableDineByNumberAndRestaurant(Integer number, Restaurant restaurant);
     void updateDine( Dine dine);
 }

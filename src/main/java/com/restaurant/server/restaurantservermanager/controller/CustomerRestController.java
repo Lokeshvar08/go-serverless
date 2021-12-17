@@ -140,7 +140,7 @@ public class CustomerRestController {
                             sendMail.getEmail(),
                             "OTP: " + random,
                             dine.getRestaurant().getName() + ": Dine OTP");
-                    return new ResponseStatus( true, "otp sent");
+                    return new ResponseStatus( true, "otp sent: "+random);
                 } else {
                     request.getSession().invalidate();
                     throw new ServiceErrorHandler("session not valid: dine is null");
@@ -329,7 +329,8 @@ public class CustomerRestController {
                     );
                     List<Order> orders = new ArrayList<>();
                     Integer transactionId = transaction.getId();
-                    transactionItemList.forEach( food -> {
+                    double total = 0.0;
+                    for(TransactionItem food: transactionItemList){
                         if( food.getStatus() == TransactionItem.Status.HAPPY_MEAL ) {
                             orders.add(
                                     new Order(
@@ -340,9 +341,44 @@ public class CustomerRestController {
                                             food.getQuantity() * food.getFood().getPrice()
                                     )
                             );
+                            total += food.getQuantity() * food.getFood().getPrice();
                         }
-                    });
+                    }
+                    transaction.setTotal(total);
+                    transactionService.saveTransaction(transaction);
                     return new ResponseGenericListObject<>(orders, true, "success");
+                } else {
+                    request.getSession().invalidate();
+                    throw new ServiceErrorHandler("session not valid: dine or customer is null");
+                }
+
+            } else {
+                throw new ServiceErrorHandler("session not valid: no existing session");
+            }
+        } catch ( Exception e) {
+            return new ResponseStatus( false, String.valueOf(e));
+        }
+    }
+
+
+    @PostMapping("/checkout")
+    public ResponseStatus checkout(HttpServletRequest request) {
+        Dine dine = null;
+        Customer customer = null;
+        Transaction transaction = null;
+        try {
+            if( request.isRequestedSessionIdValid() ) {
+                dine = (Dine) request.getAttribute("dine");
+                customer = (Customer) request.getSession().getAttribute("customer");
+                transaction = (Transaction) request.getSession().getAttribute("transaction");
+                if( dine != null && customer != null) {
+                    transaction.setStatus(false);
+                    dine.setStatus(true);
+                    transactionService.saveTransaction(transaction);
+                    dineService.updateDine(dine);
+                    request.getSession().removeAttribute("transaction");
+                    request.getSession().removeAttribute("customer");
+                    return new ResponseStatus(true, "success");
                 } else {
                     request.getSession().invalidate();
                     throw new ServiceErrorHandler("session not valid: dine or customer is null");

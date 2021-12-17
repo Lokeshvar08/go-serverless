@@ -129,7 +129,7 @@ public class HomeController {
         User user = userService.findUserByUsername(username);
         Integer random_code = user.getRestaurant().getRandom_code();
         if( random_code != null && random_code == Integer.parseInt(unicode)) {
-            Dine dine = dineService.getDineByNumberAndRestaurant(
+            Dine dine = dineService.getAvailableDineByNumberAndRestaurant(
                     Integer.parseInt(number), user.getRestaurant());
             if(dine != null ){
                 HttpSession session = request.getSession();
@@ -140,8 +140,8 @@ public class HomeController {
             }
         }
 
-        mv.setViewName("customer/home");
-        mv.addObject("error", "not able to get the specified details");
+        mv.setViewName("customer/login");
+        mv.addObject("error", "dine not available");
         return mv;
     }
 

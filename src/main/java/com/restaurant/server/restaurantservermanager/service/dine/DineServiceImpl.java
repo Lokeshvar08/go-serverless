@@ -60,8 +60,8 @@ public class DineServiceImpl implements DineService {
     }
 
     @Override
-    public Dine getDineByNumberAndRestaurant(Integer number, Restaurant restaurant) {
-        return dineRepository.getDineByRestaurant(restaurant, number);
+    public Dine getAvailableDineByNumberAndRestaurant(Integer number, Restaurant restaurant) {
+        return dineRepository.getDineByRestaurant(restaurant, number, true);
     }
 
     @Override

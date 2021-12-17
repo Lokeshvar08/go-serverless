@@ -22,7 +22,7 @@ public class MailSenderService {
                                 String subject) {
         SimpleMailMessage message = new SimpleMailMessage();
 
-        message.setFrom("lokeshvarsakthi@gmail.com");
+        message.setFrom("vigneshwar221b@skct.edu.in");
         message.setTo(toEmail);
         message.setText(body);
         message.setSubject(subject);

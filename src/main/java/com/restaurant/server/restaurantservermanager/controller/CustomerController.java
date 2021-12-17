@@ -23,9 +23,9 @@ public class CustomerController {
         return "customer/menu";
     }
 
-    @GetMapping("/cart")
+    @GetMapping("/bill")
     public String getCart() {
-        return "customer/cart";
+        return "customer/bill";
     }
 }
 

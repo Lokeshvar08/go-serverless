@@ -23,6 +23,10 @@
       overflow: auto;
     }
 
+    .container{
+      height: 100%
+    }
+
     img{
       width: 100%;
       max-height: 100%;
@@ -46,10 +50,13 @@
       margin-right: 3px;
     }
 
-    add-card{
+    .add-card{
       padding: 2%;
       display: flex;
       flex-direction: row;
+    }
+
+    .checkout-btn{
     }
 </style>
 <style th:replace="fragments/nav :: nav-style"></style>
@@ -69,7 +76,7 @@
             </tr>
             </thead>
 
-            <tbody id="list-all-foods">
+            <tbody id="menu">
             <tr class="table-active">
               <th scope="row">1</th>
               <td>Column content</td>
@@ -131,12 +138,15 @@
               <th scope="col">S.No</th>
               <th scope="col">item name</th>
               <th scope="col">price</th>
+              <th scope="col">quantity</th>
+              <th scope="col">note</th>
+              <th scope="col">status</th>
               <th scope="col">action</th>
 
             </tr>
             </thead>
 
-            <tbody id="menu">
+            <tbody id="all-foods">
 
             <tr class="table-active">
               <td>Column content</td>
@@ -162,74 +172,98 @@
 
             </tbody>
           </table>
+          <div class="row">
+            <button onclick="orderTheUnordered()" class="btn btn-success">order</button>
+          </div>
         </div>
       </div>
-
+    <div class="row justify-content-right">
+      <button onclick="checkout()" class="btn btn-dark checkout-btn">checkout</button>
+    </div>
   </div>
 </div>
 <script>
-let orderedFoodItems = [{name: "test1", price: 456, id: 8}];
-const onLoadFunc = () => {
-  getFoods();
-  getOrderedFoods();
+let fromMenuAddedItems = [];
+
+const checkout = () => {
+  window.location.replace("/customer/bill");
 }
 
-const getFoods = ()=> {
+const onLoadFunc = () => {
+  getMenu();
+  getOrderedFoodsAndRender();
+}
+
+const getMenu = ()=> {
 fetch("http://localhost:8080/api/customer/get-food-items")
     .then(res => res.json())
     .then(res => {
       console.log(res);
-      ListFoodsRenderer(res);
+      menuRenderer(res);
     })
     .catch(err => console.log(err))
 }
 
-const getOrderedFoods = ()=> {
+const getOrderedFoodsAndRender = ()=> {
 fetch("http://localhost:8080/api/customer/get-ordered-food-items")
     .then(res => res.json())
     .then(res => {
       console.log(res);
-      orderedFoodsRenderer(res);
+      FoodsRenderer(res);
     })
     .catch(err => console.log(err))
 }
 
 window.onload = onLoadFunc
 
-const orderedFoodsRenderer = (res) => {
-      console.log("ordered food items renderer");
-      const menuItems = res.list;
+const FoodsRenderer = (res) => {
+      console.log("food items renderer");
+      const orderedFoods = res.list;
 
-      document.querySelector("#menu").innerHTML = "";
+      document.querySelector("#all-foods").innerHTML = "";
 
       let resOutput = "";
-      orderedFoodItems.forEach((el, i) => {
-        resOutput += `<tr class="table-${i%2==0? 'active': 'secondary'}">
+      fromMenuAddedItems.forEach((el, i) => {
+        resOutput += `<tr class="table-secondary">
               <th scope="row">${i+1}</th>
               <td>${el.name}</td>
               <td>${el.price}</td>
-              <td> <button onclick="modifyFoodItem(${el.id}, false)"class="btn btn-dark">remove</button></td>
+              <td>
+                <div class="form-group">
+                  <input class="form-control form-control-sm" type="number" placeholder="quantity" id="unordered-quantity-${el.id}" autocomplete="off">
+                </div>
+              </td>
+              <td>
+                <div class="form-group">
+                  <input class="form-control form-control-sm" type="text" placeholder="note" id="unordered-comment-${el.id}" autocomplete="off">
+                </div>
+              </td>
+              <td>status</td>
+              <td> <button id="unordered-item-${el.id}" onclick="removeFoodItem(${el.id})"class="btn btn-dark">remove</button></td>
             </tr>`
       })
 
-      menuItems.forEach((el, i) => {
-        resOutput += `<tr class="table-${i%2==0? 'active': 'secondary'}">
+      orderedFoods.forEach((el, i) => {
+        resOutput += `<tr class="table-success">
               <th scope="row">${i+1}</th>
-              <td>${el.name}</td>
-              <td>${el.price}</td>
-              <td> <button onclick="modifyFoodItem(${el.id}, false)"class="btn btn-dark">remove</button></td>
+              <td>${el.food.name}</td>
+              <td>${el.food.price}</td>
+              <td>${el.quantity || 0}</td>
+              <td>${el.comment || 'no comments'}</td>
+              <td>${el.status || 'status unavailable'}</td>
+              <td> <button class="btn btn-dark" disabled>remove</button></td>
             </tr>`
       })
 
-      document.querySelector("#menu").innerHTML = resOutput;
+      document.querySelector("#all-foods").innerHTML = resOutput;
  }
 
- const ListFoodsRenderer = (res) => {
-      console.log("list all renderer");
+ const menuRenderer = (res) => {
+      console.log("menu renderer");
       const foodItems = res.list;
 
-      console.log(document.querySelector("#list-all-foods"))
-      document.querySelector("#list-all-foods").innerHTML = "";
+      console.log(document.querySelector("#menu"))
+      document.querySelector("#menu").innerHTML = "";
 
       let resOutput = "";
       foodItems.forEach((el, i) => {
@@ -237,17 +271,63 @@ const orderedFoodsRenderer = (res) => {
               <th scope="row">${i+1}</th>
               <td>${el.name}</td>
               <td>${el.price}</td>
-              <td> <button onclick="addFoodItem({id: ${el.id}, name: '${el.name}', price: ${el.price}})" class="btn btn-dark">Add</button></td>
+              <td> <button id="menu-item-${el.id}" onclick="addFoodItem({id: ${el.id}, name: '${el.name}', price: ${el.price}})" class="btn btn-dark">Add</button></td>
             </tr>`
       })
 
-      document.querySelector("#list-all-foods").innerHTML = resOutput;
+      document.querySelector("#menu").innerHTML = resOutput;
+       fromMenuAddedItems.map(el => {
+        document.querySelector(`#menu-item-${el.id}`).disabled = true;
+      });
  }
 
  const addFoodItem = ({id, name, price}) => {
-   console.log(orderedFoodItems)
-   orderedFoodItems.push({id: id, name: name, price: price});
-   getOrderedFoods();
+   console.log(fromMenuAddedItems)
+   fromMenuAddedItems.push({id: id, name: name, price: price});
+
+   getMenu();
+   getOrderedFoodsAndRender();
+ }
+
+ const removeFoodItem = (id) => {
+   console.log("remove");
+   fromMenuAddedItems = fromMenuAddedItems.filter(el => el.id != id);
+
+   getMenu();
+   getOrderedFoodsAndRender();
+ }
+
+ const orderTheUnordered = () => {
+  console.log("order the unordered");
+
+  let reqList = [];
+
+  fromMenuAddedItems.forEach(el => {
+    reqList.push({
+      foodId: el.id,
+      comment: document.querySelector(`#unordered-comment-${el.id}`).value,
+      quantity: document.querySelector(`#unordered-quantity-${el.id}`).value
+    })
+  })
+
+  console.log(reqList);
+
+  const url = "http://localhost:8080/api/customer/add-food-items";
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+      body: JSON.stringify(reqList)
+  })
+      .then((res)=> res.json())
+      .then((res)=>{
+        console.log(res);
+        //reload
+        location.reload();
+      })
+      .catch(err => console.log(err))
+
  }
 
 </script>

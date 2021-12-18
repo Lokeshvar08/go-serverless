@@ -39,7 +39,7 @@ public class ManagerController {
 
     @GetMapping("/home")
     public String home() {
-        return "manager/manager";
+        return "manager/manage";
     }
 
     @GetMapping("/create-employee")

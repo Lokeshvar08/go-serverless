@@ -43,7 +43,7 @@ public class AdminController {
     public String home() {
         Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         System.out.println( ((UserDetails)user).getUsername());
-        return "admin/admin";
+        return "admin/manage";
     }
 
     @GetMapping("/add-employee")

@@ -29,23 +29,20 @@
         <h4 class="card-title">login</h4>
         <form method="POST" action="/login">
           <fieldset>
-            <div class="input-group">
-              <label for="username" class="form-label mt-4">Enter OTP</label>
-              <input id="username" type="text" name="username" class="form-control" placeholder="username" aria-label="Recipient's email" aria-describedby="button-addon2">
-
+            <div class="form-group">
+              <label for="username" class="form-label mt-4">Username</label>
+              <input type="text" name ="username" class="form-control" id="username" placeholder="Enter username">
             </div>
 
-            <div class="input-group">
-              <label for="password" class="form-label mt-4">Enter OTP</label>
-              <input id="password" type="password" name="password" class="form-control" placeholder="Customer's password" aria-label="Recipient's email" aria-describedby="button-addon2">
-
+            <div class="form-group">
+              <label for="password" class="form-label mt-4">Password</label>
+              <input type="text" name ="password" class="form-control" id="password" placeholder="Enter password">
             </div>
 
             <br />
             <div class="form-group">
               <button type="submit" class="btn btn-dark">Login</button>
             </div>
-
           </fieldset>
         </form>
       </div>

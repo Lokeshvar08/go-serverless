@@ -51,6 +51,21 @@
       display: flex;
       flex-direction: row;
     }
+
+    td{
+      padding: 2px;
+    }
+
+    .btn-sml{
+      padding: 4px;
+      padding-right: inherit;
+      padding-left: inherit;
+    }
+
+    .action-btn-group{
+      display: flex;
+      justify-content: space-between;
+    }
 </style>
 <style th:replace="fragments/nav :: nav-style"></style>
 <div class="main">
@@ -69,14 +84,14 @@
           </div>
         </div>
         <div class="col-4">
-          <div class="form-group" style="display: flex; justify-content: center;">
+          <div class="form-group" style="display: flex; justify-content: right;">
             <button class="btn btn-dark" onclick="addFood()">Add Food</button>
           </div>
         </div>
       </div>
 
       <div class="row gx-5" style="margin-top: 20px;">
-        <div class="col-6">
+        <div class="col-5" style="height: 70vh; overflow: scroll;">
           <table class="table table-hover">
             <thead>
             <tr>
@@ -141,7 +156,10 @@
             </tbody>
           </table>
         </div>
-        <div class="col-6">
+        <div class="col-2">
+
+        </div>
+        <div class="col-5" style="height: 70vh; overflow: scroll;">
           <table class="table table-hover">
             <thead>
             <tr>
@@ -225,7 +243,7 @@ const menuRenderer = (res) => {
               <th scope="row">${i+1}</th>
               <td>${el.name}</td>
               <td>${el.price}</td>
-              <td> <button onclick="modifyFoodItem(${el.id}, false)" class="btn-sm btn-dark">remove</button></td>
+              <td> <button onclick="modifyFoodItem(${el.id}, false)" class="btn btn-sml btn-danger">remove</button></td>
             </tr>`
       })
 
@@ -245,9 +263,9 @@ const menuRenderer = (res) => {
               <th scope="row">${i+1}</th>
               <td>${el.name}</td>
               <td>${el.price}</td>
-              <td>
-              <button onclick="modifyFoodItem(${el.id}, true)"class="btn-sm btn-dark">add</button>
-              <button onclick="deleteFood(${el.id})" class="btn-sm btn-dark">remove</button></td>
+              <td class="action-btn-group">
+              <button onclick="modifyFoodItem(${el.id}, true)"class="btn btn-sml btn-success">add</button>
+              <button onclick="deleteFood(${el.id})" class="btn btn-sml btn-danger">remove</button></td>
             </tr>`
       })
 

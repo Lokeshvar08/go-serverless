@@ -192,20 +192,20 @@ const onLoadFunc = () => {
 }
 
 const getFoods = ()=> {
+  document.querySelector("#list-all-foods").innerHTML = "";
 fetch("http://localhost:8080/api/kitchen/foods")
     .then(res => res.json())
     .then(res => {
-      console.log(res);
       ListFoodsRenderer(res);
     })
     .catch(err => console.log(err))
 }
 
 const getMenu = ()=> {
+  document.querySelector("#menu").innerHTML = "";
 fetch("http://localhost:8080/api/kitchen/menu")
     .then(res => res.json())
     .then(res => {
-      console.log(res);
       menuRenderer(res);
     })
     .catch(err => console.log(err))
@@ -225,7 +225,7 @@ const menuRenderer = (res) => {
               <th scope="row">${i+1}</th>
               <td>${el.name}</td>
               <td>${el.price}</td>
-              <td> <button onclick="modifyFoodItem(${el.id}, false)"class="btn btn-dark">remove</button></td>
+              <td> <button onclick="modifyFoodItem(${el.id}, false)" class="btn-sm btn-dark">remove</button></td>
             </tr>`
       })
 
@@ -245,7 +245,9 @@ const menuRenderer = (res) => {
               <th scope="row">${i+1}</th>
               <td>${el.name}</td>
               <td>${el.price}</td>
-              <td> <button onclick="modifyFoodItem(${el.id}, true)"class="btn btn-dark">Add</button></td>
+              <td>
+              <button onclick="modifyFoodItem(${el.id}, true)"class="btn-sm btn-dark">add</button>
+              <button onclick="deleteFood(${el.id})" class="btn-sm btn-dark">remove</button></td>
             </tr>`
       })
 
@@ -266,7 +268,8 @@ const menuRenderer = (res) => {
       .then((res)=> res.json())
       .then((res)=>{
         console.log(res);
-        location.reload();
+        getMenu()
+        getFoods()
       })
       .catch(err => console.log(err))
 
@@ -292,10 +295,25 @@ const menuRenderer = (res) => {
 
         foodNameEl.value = "";
         foodPriceEl.value = "";
+        getFoods()
       })
       .catch(err => console.log(err))
+  }
 
-      location.reload();
+  const deleteFood = (id) => {
+    console.log(id);
+    const url = `http://localhost:8080/api/kitchen/food/delete/${id}`;
+    fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+            .then((res)=> res.json())
+            .then((res)=>{
+              getFoods()
+            })
+            .catch(err => console.log(err))
   }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>

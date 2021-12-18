@@ -27,5 +27,15 @@ public class CustomerController {
     public String getCart() {
         return "customer/bill";
     }
+
+    @GetMapping("/manage1")
+    public String getTemp1() {
+        return "manager/manage";
+    }
+
+    @GetMapping("/manage2")
+    public String getTemp2() {
+        return "admin/manage";
+    }
 }
 

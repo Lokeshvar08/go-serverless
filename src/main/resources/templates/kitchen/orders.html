@@ -42,7 +42,7 @@
     }
 
     .container{
-      height: 100%;
+      height: 70%;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -53,7 +53,7 @@
 <div class="main">
   <nav th:replace="fragments/nav :: nav"></nav>
   <div class="container main-content justify-content-center align-items-center">
-    <table class="table table-hover">
+    <table class="table table-hover" id="order-table-main">
       <thead>
         <tr>
           <th scope="col">S.No</th>
@@ -75,12 +75,14 @@
 <script>
 const onLoadFunc = () => {
   document.querySelector("#order-table").innerHTML = "";
+  document.querySelector("#order-table-main").style.opacity = 0;
     fetch("http://localhost:8080/api/kitchen/orders")
       .then(res => res.json())
       .then(res => {
 
       //load the table
         let resData = "";
+        if(res.list.length>0) document.querySelector("#order-table-main").style.opacity = 1;
         res.list.forEach((el, i) => {
           resData += `<tr class="table-secondary">
             <th scope="row">${i+1}</th>

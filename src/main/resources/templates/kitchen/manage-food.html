@@ -71,7 +71,7 @@
 <div class="main">
   <nav th:replace="fragments/nav :: nav"></nav>
   <div class="container main-content">
-    <div class="col gx-5">
+    <div class="col gx-5" style="overflow: hidden;">
       <div class="row add-card card" style="display: flex; flex-direction: row; padding: 1%">
         <div class="col-4">
           <div class="form-group">
@@ -211,7 +211,7 @@ const onLoadFunc = () => {
 
 const getFoods = ()=> {
   document.querySelector("#list-all-foods").innerHTML = "";
-fetch("http://localhost:8080/api/kitchen/foods")
+  fetch("http://localhost:8080/api/kitchen/foods")
     .then(res => res.json())
     .then(res => {
       ListFoodsRenderer(res);

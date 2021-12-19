@@ -5,14 +5,18 @@ public class AuthenticatedUserClient {
     private String username;
     private String name;
     private String role;
+    private Integer restaurantId;
     private String restaurant;
 
-    public AuthenticatedUserClient(Integer id, String username, String name, String role, String restaurant) {
+    public AuthenticatedUserClient(Integer id, String username,
+                                   String name, String role,
+                                   String restaurant, Integer restaurantId) {
         this.id = id;
         this.username = username;
         this.name = name;
         this.role = role;
         this.restaurant = restaurant;
+        this.restaurantId = restaurantId;
     }
 
     public Integer getId() {
@@ -53,5 +57,13 @@ public class AuthenticatedUserClient {
 
     public void setRestaurant(String restaurant) {
         this.restaurant = restaurant;
+    }
+
+    public Integer getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(Integer restaurantId) {
+        this.restaurantId = restaurantId;
     }
 }

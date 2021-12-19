@@ -31,6 +31,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
             try {
                 Dine dine = (Dine) session.getAttribute("dine");
                 request.setAttribute("dine", dine);
+                filterChain.doFilter(request, response);
             } catch (Exception e){
                 e.printStackTrace();
                 session.invalidate();
@@ -38,6 +39,6 @@ public class AuthorizationFilter extends OncePerRequestFilter {
         } else {
             session.invalidate();
         }
-        filterChain.doFilter(request, response);
+        response.sendRedirect("http://localhost:8080/customer");
     }
 }

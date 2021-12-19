@@ -59,16 +59,6 @@ public class CustomerController {
         return "customer/bill";
     }
 
-    @GetMapping("/manage1")
-    public String getTemp1() {
-        return "manager/manage";
-    }
-
-    @GetMapping("/manage2")
-    public String getTemp2() {
-        return "admin/manage";
-    }
-
     public PaypalService getPaypalService() {
         return paypalService;
     }

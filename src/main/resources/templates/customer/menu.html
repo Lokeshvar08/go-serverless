@@ -13,15 +13,16 @@
       margin: 5%;
     }
     .main{
-      height: 100%;
-      overflow: hidden;
-    }
-
-    .main-content{
-      margin-top: 30px;
-      margin-bottom: 30px;
-      overflow: auto;
-    }
+        height: 100%;
+        overflow: hidden;
+      }
+      .main-content{
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10%;
+        padding-top: 5%;
+      }
 
     .container{
       height: 100%
@@ -65,7 +66,7 @@
   <div class="container main-content">
 
       <div class="row gx-5" style="margin-top: 20px;">
-        <div class="col-4">
+        <div class="col-4" style="overflow: scroll;">
           <table class="table table-hover">
             <thead>
             <tr>
@@ -130,48 +131,52 @@
             </tbody>
           </table>
         </div>
-        <div class="col-8">
-          <table class="table table-hover">
-            <thead>
-            <tr>
+        <div class="col-2"></div>
+        <div class="col-6" style="overflow: scroll;">
+          <div class="row">
+            <table class="table table-hover">
+              <thead>
+              <tr>
 
-              <th scope="col">S.No</th>
-              <th scope="col">item name</th>
-              <th scope="col">price</th>
-              <th scope="col">quantity</th>
-              <th scope="col">note</th>
-              <th scope="col">status</th>
-              <th scope="col">action</th>
+                <th scope="col">S.No</th>
+                <th scope="col">item name</th>
+                <th scope="col">price</th>
+                <th scope="col">quantity</th>
+                <th scope="col">note</th>
+                <th scope="col">status</th>
+                <th scope="col">action</th>
 
-            </tr>
-            </thead>
+              </tr>
+              </thead>
 
-            <tbody id="all-foods">
+              <tbody id="all-foods">
 
-            <tr class="table-active">
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
-            <tr class="table-primary">
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
-            <tr class="table-secondary">
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
-            <tr class="table-success">
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
+              <tr class="table-active">
+                <td>Column content</td>
+                <td>Column content</td>
+                <td>Column content</td>
+              </tr>
+              <tr class="table-primary">
+                <td>Column content</td>
+                <td>Column content</td>
+                <td>Column content</td>
+              </tr>
+              <tr class="table-secondary">
+                <td>Column content</td>
+                <td>Column content</td>
+                <td>Column content</td>
+              </tr>
+              <tr class="table-success">
+                <td>Column content</td>
+                <td>Column content</td>
+                <td>Column content</td>
+              </tr>
 
 
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          </div>
+
           <div class="row">
             <button onclick="orderTheUnordered()" class="btn btn-success">order</button>
           </div>

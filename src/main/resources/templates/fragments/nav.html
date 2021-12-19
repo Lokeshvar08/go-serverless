@@ -10,32 +10,27 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" th:fragment="nav">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#" style="font-family: 'Pacifico', cursive;font-size: x-large;">Go serverless</a>
+        <a class="navbar-brand" href="/" style="font-family: 'Pacifico', cursive;font-size: x-large;" ><span th:text="${user}? ${user.getRestaurant()}: 'go serverless'">serv</span></a>
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse justify-content-end" id="navbarColor01">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
-                </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Signup</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Login</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/kitchen/orders">Orders</a>
-                </li>
-
-                <li class="nav-item">
+                <li class="nav-item" th:if="${user}">
                     <a class="nav-link" href="/logout">Logout</a>
                 </li>
+
+                <li class="nav-item" th:unless="${user}">
+                    <a class="nav-link" href="/register">Signup</a>
+                </li>
+
+                <li class="nav-item" th:unless="${user}">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+
             </ul>
         </div>
 

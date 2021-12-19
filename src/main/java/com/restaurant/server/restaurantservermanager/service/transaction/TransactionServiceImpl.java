@@ -57,4 +57,9 @@ public class TransactionServiceImpl implements TransactionService {
     public List<Transaction> getTransactionsByKitchen(Restaurant restaurant, Boolean status) {
         return transactionRepository.getTransactionsByRestaurantAndStatus(restaurant, status);
     }
+
+    @Override
+    public Transaction checkOutTransaction(Transaction transaction) {
+        return null;
+    }
 }

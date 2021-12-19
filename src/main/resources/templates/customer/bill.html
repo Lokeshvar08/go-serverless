@@ -50,7 +50,15 @@
       </div>
       <div class="row pay">
         <button type="button" onclick="tempFunc()" class="btn btn-dark">Pay with cash</button>
-        <button type="button" onclick="payWithPayTM()" class="btn btn-success" style="margin-top: 15px">Pay with card</button>
+        <form action="/customer/pay" method="post">
+          <input type="submit" class="btn btn-success" style="margin-top: 15px" value="pay with card">
+        </form>
+      </div>
+      <div th:if="${payment}">
+        <h4>Success</h4>
+      </div>
+      <div th:if="${error}">
+        <h4>Error</h4>
       </div>
     </div>
 
@@ -73,20 +81,6 @@
 
   })
   .catch(err => console.log(err))
-  }
-
-  const payWithPayTM() = () => {
-    const url = "http://localhost:8080/api/customer/pay";
-    fetch(url, {
-    method: 'POST'
-    })
-    .then(res=> res.json())
-    .then(res=>{
-      console.log(res);
-      if(res.status) window.location.replace("/customer/login");
-      else console.log(res);
-    })
-    .catch(err => console.log(err))
   }
 
   window.onload = () => {

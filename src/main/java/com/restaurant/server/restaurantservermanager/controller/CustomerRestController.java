@@ -22,10 +22,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 
@@ -50,6 +48,17 @@ public class CustomerRestController {
 
     @Autowired
     private TransactionItemService transactionItemService;
+
+    @Autowired
+    private InvalidateCustomer invalidateCustomer;
+
+    public InvalidateCustomer getInvalidateCustomer() {
+        return invalidateCustomer;
+    }
+
+    public void setInvalidateCustomer(InvalidateCustomer invalidateCustomer) {
+        this.invalidateCustomer = invalidateCustomer;
+    }
 
     public MailSenderService getMailSenderService() {
         return mailSenderService;
@@ -352,33 +361,11 @@ public class CustomerRestController {
 
     @PostMapping("/checkout")
     public ResponseStatus checkout(HttpServletRequest request) {
-        Dine dine = null;
-        Customer customer = null;
-        Transaction transaction = null;
         try {
-            if( request.isRequestedSessionIdValid() ) {
-                dine = (Dine) request.getAttribute("dine");
-                customer = (Customer) request.getSession().getAttribute("customer");
-                transaction = (Transaction) request.getSession().getAttribute("transaction");
-                if( dine != null && customer != null) {
-                    transaction.setStatus(false);
-                    dine.setStatus(true);
-                    dine.setOtp(null);
-                    transactionService.saveTransaction(transaction);
-                    dineService.updateDine(dine);
-                    request.getSession().removeAttribute("transaction");
-                    request.getSession().removeAttribute("customer");
-                    return new ResponseStatus(true, "success");
-                } else {
-                    request.getSession().invalidate();
-                    throw new ServiceErrorHandler("session not valid: dine or customer is null");
-                }
-
-            } else {
-                throw new ServiceErrorHandler("session not valid: no existing session");
-            }
+            invalidateCustomer.invalidateCustomer(request);
+            return new ResponseStatus(true, "success");
         } catch ( Exception e) {
-            return new ResponseStatus( false, String.valueOf(e));
+            return new ResponseStatus(false, String.valueOf(e));
         }
     }
 }

@@ -12,4 +12,5 @@ public interface TransactionService {
     Transaction getOrCreateTransaction(Customer customer, Dine dine);
     Transaction getTransactionByKitchen(Integer id, Restaurant restaurant, Boolean status );
     List<Transaction> getTransactionsByKitchen(Restaurant restaurant, Boolean status);
+    Transaction checkOutTransaction(Transaction transaction);
 }

@@ -10,4 +10,5 @@ public interface TransactionItemService {
     List<TransactionItem> saveItems(List<TransactionItem> items);
     List<TransactionItem> getOrderedFoods(Transaction transaction);
     TransactionItem getActiveTransactionItemById( Transaction transaction , Integer id);
+    Double getTotalOfTransaction(Transaction transaction);
 }

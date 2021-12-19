@@ -60,7 +60,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/kitchen/**").hasRole("KITCHEN")
                 .antMatchers("/api/cashier/**").hasRole("CASHIER")
                 .antMatchers("/cashier/**").hasRole("CASHIER")
-                .antMatchers("/", "/register", "/customer/**","/api/customer/**").permitAll()
+                .antMatchers(
+                        "/",
+                        "/register",
+                        "/customer/**",
+                        "/api/customer/**", "/socket").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

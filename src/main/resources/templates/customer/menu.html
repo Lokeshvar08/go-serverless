@@ -183,48 +183,48 @@
   </div>
 </div>
 <script>
-let fromMenuAddedItems = [];
+  let fromMenuAddedItems = [];
 
-const checkout = () => {
-  window.location.href = "http://localhost:8080/customer/bill";
-}
+  const checkout = () => {
+    window.location.href = "http://localhost:8080/customer/bill";
+  }
 
-const onLoadFunc = () => {
-  getMenu();
-  getOrderedFoodsAndRender();
-}
+  const onLoadFunc = () => {
+    getMenu();
+    getOrderedFoodsAndRender();
+  }
 
-const getMenu = ()=> {
-fetch("http://localhost:8080/api/customer/get-food-items")
-    .then(res => res.json())
-    .then(res => {
-      console.log(res);
-      menuRenderer(res);
-    })
-    .catch(err => console.log(err))
-}
+  const getMenu = ()=> {
+    fetch("http://localhost:8080/api/customer/get-food-items")
+            .then(res => res.json())
+            .then(res => {
+              console.log(res);
+              menuRenderer(res);
+            })
+            .catch(err => console.log(err))
+  }
 
-const getOrderedFoodsAndRender = ()=> {
-fetch("http://localhost:8080/api/customer/get-ordered-food-items")
-    .then(res => res.json())
-    .then(res => {
-      console.log(res);
-      FoodsRenderer(res);
-    })
-    .catch(err => console.log(err))
-}
+  const getOrderedFoodsAndRender = ()=> {
+    fetch("http://localhost:8080/api/customer/get-ordered-food-items")
+            .then(res => res.json())
+            .then(res => {
+              console.log(res);
+              FoodsRenderer(res);
+            })
+            .catch(err => console.log(err))
+  }
 
-window.onload = onLoadFunc
+  window.onload = onLoadFunc
 
-const FoodsRenderer = (res) => {
-      console.log("food items renderer");
-      const orderedFoods = res.list;
+  const FoodsRenderer = (res) => {
+    console.log("food items renderer");
+    const orderedFoods = res.list;
 
-      document.querySelector("#all-foods").innerHTML = "";
+    document.querySelector("#all-foods").innerHTML = "";
 
-      let resOutput = "";
-      fromMenuAddedItems.forEach((el, i) => {
-        resOutput += `<tr class="table-secondary">
+    let resOutput = "";
+    fromMenuAddedItems.forEach((el, i) => {
+      resOutput += `<tr class="table-secondary">
               <th scope="row">${i+1}</th>
               <td>${el.name}</td>
               <td>${el.price}</td>
@@ -241,10 +241,10 @@ const FoodsRenderer = (res) => {
               <td>status</td>
               <td> <button id="unordered-item-${el.id}" onclick="removeFoodItem(${el.id})"class="btn btn-dark">remove</button></td>
             </tr>`
-      })
+    })
 
-      orderedFoods.forEach((el, i) => {
-        resOutput += `<tr class="table-success">
+    orderedFoods.forEach((el, i) => {
+      resOutput += `<tr class="table-success">
               <th scope="row">${i+1}</th>
               <td>${el.food.name}</td>
               <td>${el.food.price}</td>
@@ -253,83 +253,82 @@ const FoodsRenderer = (res) => {
               <td>${el.status || 'status unavailable'}</td>
               <td> <button class="btn btn-dark" disabled>remove</button></td>
             </tr>`
-      })
+    })
 
-      document.querySelector("#all-foods").innerHTML = resOutput;
- }
+    document.querySelector("#all-foods").innerHTML = resOutput;
+  }
 
- const menuRenderer = (res) => {
-      console.log("menu renderer");
-      const foodItems = res.list;
+  const menuRenderer = (res) => {
+    console.log("menu renderer");
+    const foodItems = res.list;
 
-      console.log(document.querySelector("#menu"))
-      document.querySelector("#menu").innerHTML = "";
+    console.log(document.querySelector("#menu"))
+    document.querySelector("#menu").innerHTML = "";
 
-      let resOutput = "";
-      foodItems.forEach((el, i) => {
-        resOutput += `<tr class="table-${i%2==0? 'active': 'secondary'}">
+    let resOutput = "";
+    foodItems.forEach((el, i) => {
+      resOutput += `<tr class="table-${i%2==0? 'active': 'secondary'}">
               <th scope="row">${i+1}</th>
               <td>${el.name}</td>
               <td>${el.price}</td>
               <td> <button id="menu-item-${el.id}" onclick="addFoodItem({id: ${el.id}, name: '${el.name}', price: ${el.price}})" class="btn btn-dark">Add</button></td>
             </tr>`
-      })
-
-      document.querySelector("#menu").innerHTML = resOutput;
-       fromMenuAddedItems.map(el => {
-        document.querySelector(`#menu-item-${el.id}`).disabled = true;
-      });
- }
-
- const addFoodItem = ({id, name, price}) => {
-   console.log(fromMenuAddedItems)
-   fromMenuAddedItems.push({id: id, name: name, price: price});
-
-   getMenu();
-   getOrderedFoodsAndRender();
- }
-
- const removeFoodItem = (id) => {
-   console.log("remove");
-   fromMenuAddedItems = fromMenuAddedItems.filter(el => el.id != id);
-
-   getMenu();
-   getOrderedFoodsAndRender();
- }
-
- const orderTheUnordered = () => {
-  console.log("order the unordered");
-
-  let reqList = [];
-
-  fromMenuAddedItems.forEach(el => {
-    reqList.push({
-      foodId: el.id,
-      comment: document.querySelector(`#unordered-comment-${el.id}`).value,
-      quantity: document.querySelector(`#unordered-quantity-${el.id}`).value
     })
-  })
 
-  console.log(reqList);
+    document.querySelector("#menu").innerHTML = resOutput;
+    fromMenuAddedItems.map(el => {
+      document.querySelector(`#menu-item-${el.id}`).disabled = true;
+    });
+  }
 
-  const url = "http://localhost:8080/api/customer/add-food-items";
-  fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-      body: JSON.stringify(reqList)
-  })
-      .then((res)=> res.json())
-      .then((res)=>{
-        console.log(res);
-        //reload
-        location.reload();
+  const addFoodItem = ({id, name, price}) => {
+    console.log(fromMenuAddedItems)
+    fromMenuAddedItems.push({id: id, name: name, price: price});
+
+    getMenu();
+    getOrderedFoodsAndRender();
+  }
+
+  const removeFoodItem = (id) => {
+    console.log("remove");
+    fromMenuAddedItems = fromMenuAddedItems.filter(el => el.id != id);
+
+    getMenu();
+    getOrderedFoodsAndRender();
+  }
+
+  const orderTheUnordered = () => {
+    console.log("order the unordered");
+
+    let reqList = [];
+
+    fromMenuAddedItems.forEach(el => {
+      reqList.push({
+        foodId: el.id,
+        comment: document.querySelector(`#unordered-comment-${el.id}`).value,
+        quantity: document.querySelector(`#unordered-quantity-${el.id}`).value
       })
-      .catch(err => console.log(err))
+    })
 
- }
+    console.log(reqList);
 
+    const url = "http://localhost:8080/api/customer/add-food-items";
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(reqList)
+    })
+            .then((res)=> res.json())
+            .then((res)=>{
+              console.log(res);
+              //reload
+              location.reload();
+            })
+            .catch(err => console.log(err))
+
+  }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>

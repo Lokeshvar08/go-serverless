@@ -2,6 +2,7 @@ package com.restaurant.server.restaurantservermanager.service.transaction;
 
 import com.restaurant.server.restaurantservermanager.model.*;
 import com.restaurant.server.restaurantservermanager.repository.TransactionItemRepository;
+import com.restaurant.server.restaurantservermanager.service.forms.kitchen.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,5 +43,20 @@ public class TransactionItemServiceImpl implements TransactionItemService{
         return transactionItemRepository.getTransactionItemByTransactionAndId(
                 transaction,
                 id);
+    }
+
+    @Override
+    public Double getTotalOfTransaction(Transaction transaction) {
+        List<TransactionItem> transactionItemList = getOrderedFoods(
+                transaction
+        );
+        Integer transactionId = transaction.getId();
+        double total = 0.0;
+        for(TransactionItem food: transactionItemList){
+            if( food.getStatus() == TransactionItem.Status.HAPPY_MEAL ) {
+                total += food.getQuantity() * food.getFood().getPrice();
+            }
+        }
+        return total;
     }
 }

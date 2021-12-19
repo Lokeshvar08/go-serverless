@@ -53,7 +53,6 @@ public class AdminController {
                     user.getRestaurant().getName(),
                     user.getRestaurant().getId()
             ));
-            mv.addObject("user", user);
             mv.setViewName("admin/manage");
         } catch (Exception e){
             mv.setViewName("auth/login");
@@ -75,7 +74,6 @@ public class AdminController {
                     user.getRestaurant().getId()
             ));
             mv.setViewName("admin/add-employee");
-            mv.addObject("user",user);
         } catch (Exception e) {
             mv.setViewName("auth/login");
             mv.addObject("error","invalid");
@@ -107,7 +105,6 @@ public class AdminController {
                         user.getRestaurant().getId()
                 ));
                 mv.setViewName("admin/add-employee");
-                mv.addObject("user",user);
                 mv.addObject("creation", "Employee Creation Successful!");
             } else{
                 throw new Exception("Invalid Role");

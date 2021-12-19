@@ -10,6 +10,7 @@ import com.restaurant.server.restaurantservermanager.model.Transaction;
 import com.restaurant.server.restaurantservermanager.service.InvalidateCustomer;
 import com.restaurant.server.restaurantservermanager.service.PaypalService;
 import com.restaurant.server.restaurantservermanager.service.errors.ServiceErrorHandler;
+import com.restaurant.server.restaurantservermanager.service.forms.customer.DineDataClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,24 +40,53 @@ public class CustomerController {
         this.invalidateCustomer = invalidateCustomer;
     }
 
-    @GetMapping("/register")
-    public String getRegister() {
-        return "customer/register";
-    }
 
     @GetMapping("/login")
-    public String getLogin() {
-        return "customer/login";
+    public ModelAndView getLogin(HttpServletRequest request, ModelAndView mv) {
+        Dine dine = (Dine) request.getSession().getAttribute("dine");
+        mv.setViewName("customer/login");
+        mv.addObject("dine",new DineDataClient(
+                dine.getId(),
+                dine.getNumber(),
+                dine.getRestaurant().getId(),
+                dine.getRestaurant().getName()
+        ));
+        return mv;
     }
 
     @GetMapping("/menu")
-    public String getMenu() {
-        return "customer/menu";
+    public ModelAndView getMenu(HttpServletRequest request, ModelAndView mv) {
+        Dine dine = (Dine) request.getSession().getAttribute("dine");
+        Customer customer = (Customer) request.getSession().getAttribute("customer");
+        mv.setViewName("customer/menu");
+        mv.addObject("dine", new DineDataClient(
+                dine.getId(),
+                dine.getNumber(),
+                dine.getRestaurant().getId(),
+                dine.getRestaurant().getName(),
+                customer.getEmail()
+        ));
+        return mv;
     }
 
     @GetMapping("/bill")
-    public String getCart() {
-        return "customer/bill";
+    public ModelAndView getCart(HttpServletRequest request, ModelAndView mv) {
+        Dine dine = (Dine) request.getSession().getAttribute("dine");
+        Customer customer = (Customer) request.getSession().getAttribute("customer");
+        Transaction transaction = (Transaction) request.getSession().getAttribute("transaction");
+        mv.setViewName("customer/bill");
+        DineDataClient ddc = new DineDataClient(
+                dine.getId(),
+                dine.getNumber(),
+                dine.getRestaurant().getId(),
+                dine.getRestaurant().getName(),
+                customer.getEmail()
+        );
+        if( transaction != null) {
+            ddc.setTransactionId(transaction.getId());
+        }
+        mv.addObject("dine",ddc);
+        return mv;
     }
 
     public PaypalService getPaypalService() {

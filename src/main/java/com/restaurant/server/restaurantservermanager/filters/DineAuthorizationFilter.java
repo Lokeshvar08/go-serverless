@@ -1,7 +1,6 @@
 package com.restaurant.server.restaurantservermanager.filters;
 
 import com.restaurant.server.restaurantservermanager.model.Dine;
-import com.restaurant.server.restaurantservermanager.model.Restaurant;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -13,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Component
-public class AuthorizationFilter extends OncePerRequestFilter {
+public class DineAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         return !(
@@ -38,7 +37,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
             }
         } else {
             session.invalidate();
+            response.sendRedirect("http://localhost:8080/customer");
         }
-        response.sendRedirect("http://localhost:8080/customer");
     }
 }

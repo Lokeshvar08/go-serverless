@@ -134,13 +134,13 @@ public class HomeController {
             if(dine != null ){
                 HttpSession session = request.getSession();
                 session.setAttribute("dine", dine);
-                mv.setViewName("customer/login");
+                mv.setViewName("redirect:/customer/login");
                 mv.addObject("dine", dine);
                 return mv;
             }
         }
 
-        mv.setViewName("customer/login");
+        mv.setViewName("customer/register");
         mv.addObject("error", "dine not available");
         return mv;
     }

@@ -7,6 +7,7 @@ public class DineDataClient {
     private String restaurantName;
     private String customer;
     private Integer transactionId;
+    private String role;
 
     public DineDataClient(Integer id, Integer number,
                           Integer restaurantId, String restaurantName,
@@ -16,6 +17,7 @@ public class DineDataClient {
         this.restaurantId = restaurantId;
         this.restaurantName = restaurantName;
         this.customer = customer;
+        this.role = "ROLE_CUSTOMER";
     }
 
     public DineDataClient(Integer id, Integer number, Integer restaurantId, String restaurantName) {
@@ -23,6 +25,7 @@ public class DineDataClient {
         this.number = number;
         this.restaurantId = restaurantId;
         this.restaurantName = restaurantName;
+        this.role = "ROLE_CUSTOMER";
     }
 
 
@@ -73,5 +76,13 @@ public class DineDataClient {
 
     public void setTransactionId(Integer transactionId) {
         this.transactionId = transactionId;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

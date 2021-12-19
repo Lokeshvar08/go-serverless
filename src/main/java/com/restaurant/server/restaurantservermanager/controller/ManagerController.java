@@ -49,7 +49,8 @@ public class ManagerController {
                     user.getUsername(),
                     user.getName(),
                     user.getRole().toString(),
-                    user.getRestaurant().getName()
+                    user.getRestaurant().getName(),
+                    user.getRestaurant().getId()
             ));
             return mv;
         }catch (Exception e) {
@@ -69,7 +70,8 @@ public class ManagerController {
                     user.getUsername(),
                     user.getName(),
                     user.getRole().toString(),
-                    user.getRestaurant().getName()
+                    user.getRestaurant().getName(),
+                    user.getRestaurant().getId()
             ));
             return mv;
         }catch (Exception e) {
@@ -99,7 +101,8 @@ public class ManagerController {
                         user.getUsername(),
                         user.getName(),
                         user.getRole().toString(),
-                        user.getRestaurant().getName()
+                        user.getRestaurant().getName(),
+                        user.getRestaurant().getId()
                 ));
                 mv.setViewName("manager/add-cooks");
                 mv.addObject("creation", "Employee Creation Successful!");

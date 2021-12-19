@@ -1,6 +1,8 @@
 package com.restaurant.server.restaurantservermanager.controller;
 
+import com.restaurant.server.restaurantservermanager.model.User;
 import com.restaurant.server.restaurantservermanager.security.AuthenticatedUser;
+import com.restaurant.server.restaurantservermanager.service.forms.user.AuthenticatedUserClient;
 import com.restaurant.server.restaurantservermanager.service.transactions.employeeCreation.EmployeeCreation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,13 +40,43 @@ public class ManagerController {
     }
 
     @GetMapping("/home")
-    public String home() {
-        return "manager/manage";
+    public ModelAndView home(ModelAndView mv) {
+        try {
+            mv.setViewName("manager/manage");
+            User user = authenticatedUser.getAuthenticatedUserObject();
+            mv.addObject("user", new AuthenticatedUserClient(
+                    user.getId(),
+                    user.getUsername(),
+                    user.getName(),
+                    user.getRole().toString(),
+                    user.getRestaurant().getName()
+            ));
+            return mv;
+        }catch (Exception e) {
+            mv.setViewName("auth/login");
+            mv.addObject("error", "invalid");
+            return mv;
+        }
     }
 
     @GetMapping("/create-employee")
-    public String createEmployee(ModelAndView mv) {
-        return "manager/add-cooks";
+    public ModelAndView createEmployee(ModelAndView mv) {
+        try {
+            mv.setViewName("manager/add-cooks");
+            User user = authenticatedUser.getAuthenticatedUserObject();
+            mv.addObject("user", new AuthenticatedUserClient(
+                    user.getId(),
+                    user.getUsername(),
+                    user.getName(),
+                    user.getRole().toString(),
+                    user.getRestaurant().getName()
+            ));
+            return mv;
+        }catch (Exception e) {
+            mv.setViewName("auth/login");
+            mv.addObject("error", "invalid");
+            return mv;
+        }
     }
 
     @PostMapping("/save-employee")
@@ -61,14 +93,22 @@ public class ManagerController {
                         role,
                         authenticatedUser.getAuthenticatedUserObject().getRestaurant()
                 );
-                mv.setViewName("manager/add-employee");
+                User user = authenticatedUser.getAuthenticatedUserObject();
+                mv.addObject("user", new AuthenticatedUserClient(
+                        user.getId(),
+                        user.getUsername(),
+                        user.getName(),
+                        user.getRole().toString(),
+                        user.getRestaurant().getName()
+                ));
+                mv.setViewName("manager/add-cooks");
                 mv.addObject("creation", "Employee Creation Successful!");
             } else{
                 throw new Exception("Invalid Role");
             }
 
         } catch (Exception e) {
-            mv.setViewName("manager/add-employee");
+            mv.setViewName("manager/add-cooks");
             mv.addObject("creation", "Employee Creation UnSuccessful!");
         }
         return mv;

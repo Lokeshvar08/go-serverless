@@ -16,7 +16,10 @@ import java.io.IOException;
 public class AuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        return !request.getServletPath().startsWith("/api/customer/");
+        return !(
+                request.getServletPath().startsWith("/api/customer/")
+                || request.getServletPath().startsWith("/customer/")
+        );
     }
 
     @Override

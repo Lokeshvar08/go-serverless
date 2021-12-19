@@ -57,15 +57,35 @@
       flex-direction: row;
     }
 
-    .checkout-btn{
+     .table-main-body{
+        padding-left: 5%;
+        padding-right: 5%;
+        height: 50vh;
+        overflow: auto;
+      }
+
+     .toolbar-text{
+      display: flex;
+      align-items: center;
+    }
+    h2{
+      text-align: center;
     }
 </style>
 <style th:replace="fragments/nav :: nav-style"></style>
 <div class="main">
   <nav th:replace="fragments/nav :: nav"></nav>
   <div class="container main-content">
+    <div class="row toolbar-body card" style="display: flex; flex-direction: row; padding: 1%; margin-left: 5%; margin-right: 5%;">
+      <div class="col-6 toolbar-1-body">
+        <h2>dine no: <b th:text="${dine.getNumber()}"></b></h2>
+      </div>
+      <div class="col-6 toolbar-2-body">
+        <h2>customer: <b th:text="${dine.getCustomer()}"></b></h2>
+      </div>
 
-      <div class="row gx-5" style="margin-top: 20px;">
+    </div>
+    <div class="row gx-5" style="margin-top: 20px;">
         <div class="col-4" style="overflow: scroll;">
           <table class="table table-hover">
             <thead>
@@ -137,7 +157,6 @@
             <table class="table table-hover">
               <thead>
               <tr>
-
                 <th scope="col">S.No</th>
                 <th scope="col">item name</th>
                 <th scope="col">price</th>
@@ -145,7 +164,6 @@
                 <th scope="col">note</th>
                 <th scope="col">status</th>
                 <th scope="col">action</th>
-
               </tr>
               </thead>
 
@@ -176,7 +194,6 @@
               </tbody>
             </table>
           </div>
-
           <div class="row">
             <button onclick="orderTheUnordered()" class="btn btn-success">order</button>
           </div>

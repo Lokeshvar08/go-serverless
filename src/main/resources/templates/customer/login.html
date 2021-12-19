@@ -19,15 +19,32 @@
       h4{
         margin-bottom: 20px !important;
       }
+       .toolbar-text{
+      display: flex;
+      align-items: center;
+      }
+      h2{
+        text-align: center;
+      }
+      login-card{
+        margin-top: 5%;
+      }
 </style>
 <style th:replace="fragments/nav :: nav-style"></style>
 <div class="main">
   <nav th:replace="fragments/nav :: nav"></nav>
-  <div class="form-body row justify-content-center align-items-center">
-    <div class="col login-card card border-dark mb-3">
+  <div class="form-body col justify-content-center align-items-center">
+
+    <div class="row toolbar-body card" style="display: flex; flex-direction: row; padding: 1%; margin-left: 5%; margin-right: 5%;">
+      <div class="col toolbar-1-body">
+        <h2>dine no: <b th:text="${dine.getNumber()}"></b></h2>
+      </div>
+
+    </div>
+
+    <div class="row login-card card border-dark mb-3">
       <div class="card-body">
         <h4 class="card-title">Register</h4>
-
           <fieldset>
             <div class="input-group">
               <input name="email" id="email" type="text" class="form-control" placeholder="Customer's email id" aria-label="Recipient's email" aria-describedby="button-addon2">

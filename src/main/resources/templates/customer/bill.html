@@ -20,16 +20,36 @@
   .pay{
   margin-top: 50px;
   }
+
+   .toolbar-text{
+      display: flex;
+      align-items: center;
+    }
+    h2{
+      text-align: center;
+    }
+    table-main{
+      margin-top: 5%;
+    }
 </style>
 <style th:replace="fragments/nav :: nav-style"></style>
 <div class="main">
   <nav th:replace="fragments/nav :: nav"></nav>
   <div class="container main-content">
     <div class="col">
-      <div class="row table-num">
-        <h2>table num: #4</h2>
+      <div class="row toolbar-body card" style="display: flex; flex-direction: row; padding: 1%; margin-left: 5%; margin-right: 5%;">
+        <div class="col-2 toolbar-1-body">
+          <h2>dine no: <b th:text="${dine.getNumber()}"></b></h2>
+        </div>
+        <div class="col-5 toolbar-2-body">
+          <h2>customer: <b th:text="${dine.getCustomer()}"></b></h2>
+        </div>
+        <div class="col-5 toolbar-2-body">
+          <h2>transaction id: <b th:text="${dine.getTransactionId()}"></b></h2>
+        </div>
       </div>
-      <div class="row">
+
+      <div class="row table-main">
         <table class="table table-hover">
           <thead>
           <tr>

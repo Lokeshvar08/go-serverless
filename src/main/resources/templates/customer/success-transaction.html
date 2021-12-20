@@ -30,7 +30,7 @@
         font-size:20px;
         margin: 0;
       }
-    .checkmark {
+    .tick {
       color: #9ABC66;
       font-size: 100px;
       line-height: 200px;
@@ -52,12 +52,15 @@
   <nav th:replace="fragments/nav :: nav"></nav>
   <div class="container">
 
-    <div class="card">
+    <div class="card border-dark mb-3">
       <div style="border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto; display: flex; justify-content: center;">
-        <i class="checkmark">✓</i>
+        <i class="fa fa-check tick"></i>
       </div>
       <h1>Success</h1>
       <p>Your transaction is successful<br/> The bill will be sent to your email shortly!</p>
+      <div style="display: flex; justify-content: center; margin-top: 5%">
+        <a class="btn btn-success" href="/customer/login"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>back to launch</a>
+      </div>
     </div>
 
   </div>

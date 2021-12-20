@@ -35,6 +35,9 @@
 
         <div class="collapse navbar-collapse justify-content-end" id="navbarColor01">
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item" th:unless="${user} or ${dine}">
+                    <a class="nav-link" href="/customer"><i class="fa fa-cutlery" aria-hidden="true"></i>customer</a>
+                </li>
 
                 <li class="nav-item" th:unless="${user} or ${dine}">
                     <a class="nav-link" href="/register"><i class="fa fa-user-plus" aria-hidden="true"></i>Signup</a>

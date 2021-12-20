@@ -83,6 +83,7 @@ public class HomeController {
     public ModelAndView loginPageError(ModelAndView mv) {
         mv.setViewName("auth/login");
         mv.addObject("loginError", true);
+        mv.addObject("message","invalid username or password");
         return mv;
     }
 

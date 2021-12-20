@@ -81,16 +81,19 @@
   <div class="container main-content">
 
     <div class="row toolbar-body card border-dark mb-3" style="display: flex; flex-direction: row; padding: 1%; margin-left: 5%; margin-right: 5%;">
-      <div class="col-6 toolbar-1-body">
+      <div class="col-2 toolbar-1-body">
         <h3>dine no: <b th:text="${dine.getNumber()}"></b></h3>
       </div>
-      <div class="col-6 toolbar-2-body">
+      <div class="col-8 toolbar-2-body">
         <h3>customer: <b th:text="${dine.getCustomer()}"></b></h3>
+      </div>
+      <div class="col-2 toolbar-3-body">
+        <button onclick="checkout()" class="btn btn-dark checkout-btn"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>checkout</button>
       </div>
 
     </div>
     <div class="row gx-5" style="margin-top: 20px;">
-        <div class="col-4" style="overflow: scroll;">
+        <div class="col-4" style="height: 60vh; overflow: scroll;">
           <table class="table table-hover">
             <thead>
             <tr>
@@ -115,48 +118,13 @@
               <td>Column content</td>
               <td>Column content</td>
             </tr>
-            <tr class="table-secondary">
-              <th scope="row">3</th>
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
-            <tr class="table-success">
-              <th scope="row">4</th>
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
-            <tr class="table-danger">
-              <th scope="row">5</th>
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
-            <tr class="table-warning">
-              <th scope="row">6</th>
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
-            <tr class="table-info">
-              <th scope="row">7</th>
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
-            <tr class="table-light">
-              <th scope="row">8</th>
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
+
 
             </tbody>
           </table>
         </div>
         <div class="col-1"></div>
-        <div class="col" style="overflow: scroll;">
+        <div class="col" style="height: 60vh; overflow: scroll;">
           <div class="row">
             <table class="table table-hover">
               <thead>
@@ -203,9 +171,7 @@
           </div>
         </div>
       </div>
-    <div class="row justify-content-right" style="margin-left: 5%; margin-right: 5%;">
-      <button onclick="checkout()" class="btn btn-dark checkout-btn"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>checkout</button>
-    </div>
+
 
   </div>
 </div>

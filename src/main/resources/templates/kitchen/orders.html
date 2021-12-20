@@ -50,6 +50,7 @@
     }
 </style>
 <style th:replace="fragments/nav :: nav-style"></style>
+<input id="restaurant-id" th:value="${user.getRestaurantId()}" hidden>
 <div class="main">
   <nav th:replace="fragments/nav :: nav"></nav>
   <div class="container main-content justify-content-center align-items-center">
@@ -73,32 +74,52 @@
   </div>
 </div>
 <script>
-const onLoadFunc = () => {
-  document.querySelector("#order-table").innerHTML = "";
 
+  let stompClient = null;
+  const restaurant_id = document.getElementById("restaurant-id").value;
+  console.log(restaurant_id)
+
+  function connect() {
+    let socket = new SockJS('/ws');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+      stompClient.subscribe('/user/'+restaurant_id+"/queue/messages", function (greeting) {
+        showGreeting(JSON.parse(greeting.body).content);
+      });
+    });
+  }
+
+  function disconnect() {
+    if (stompClient !== null) {
+      stompClient.disconnect();
+    }
+    // console.log("Disconnected");
+  }
+
+  function sendName(dine) {
+    stompClient.send("/app/chat", {}, JSON.stringify({
+      dine: dine,
+      restaurant: restaurant_id,
+      message: 'kitchen'
+    }));
+  }
+
+  function showGreeting(message) {
+    getOrders()
+  }
+
+  const getOrders = () => {
+    document.querySelector("#order-table").innerHTML = "";
+    document.querySelector("#order-table-main").style.opacity = 0;
     fetch("http://localhost:8080/api/kitchen/orders")
-      .then(res => res.json())
-      .then(res => {
+            .then(res => res.json())
+            .then(res => {
 
-      //load the table
-        let resData = "";
-        if(res.list.length==0) resData= `
-        <tr class="table-secondary">
-            <th scope="row">-</th>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>
-             -
-            </td>
-            <td>
-              -
-            </td>
-          </tr>
-        `;
-        res.list.forEach((el, i) => {
-          resData += `<tr class="table-secondary">
+              //load the table
+              let resData = "";
+              if(res.list.length>0) document.querySelector("#order-table-main").style.opacity = 1;
+              res.list.forEach((el, i) => {
+                resData += `<tr class="table-secondary">
             <th scope="row">${i+1}</th>
             <td>${el.food}</td>
             <td>${el.quantity}</td>
@@ -114,21 +135,26 @@ const onLoadFunc = () => {
                 </div>
             </td>
             <td>
-              <button onclick="updateStatus(${el.transaction}, ${el.transactionItem})" class="btn btn-dark checkout-btn">update</button>
+              <button onclick="updateStatus(${el.transaction}, ${el.transactionItem}, ${el.dineId})" class="btn btn-dark checkout-btn">update</button>
             </td>
           </tr>`
-        })
-        document.querySelector("#order-table").innerHTML = resData;
+              })
+              document.querySelector("#order-table").innerHTML = resData;
 
-      })
-      .catch(err => console.log(err))
+            })
+            .catch(err => console.log(err))
+  }
+
+const onLoadFunc = () => {
+    connect()
+    getOrders()
 }
 
 window.onload = onLoadFunc
 
-const updateStatus = (transaction, transactionItem) => {
+const updateStatus = (transaction, transactionItem, dine) => {
+
   const url = "http://localhost:8080/api/kitchen/update-transaction-item";
-  console.log({transaction, transactionItem, status: document.querySelector(`#status-select-${transaction}`).value});
 
   fetch(url, {
     method: 'PUT',
@@ -140,11 +166,9 @@ const updateStatus = (transaction, transactionItem) => {
       )
   })
   .then(res=> res.json())
-  .then(res=>{
-    console.log(res);
-
-    //reload
-    location.reload();
+  .then(()=>{
+    sendName(dine)
+    getOrders()
   })
   .catch(err => console.log(err))
 }

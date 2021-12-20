@@ -150,6 +150,8 @@ public class CustomerController {
         mv.addObject("error",true);
         return mv;
     }
+
+    //TODO: REDIRECT TO DIFFERENT PAGE | NAVBAR EXPECT DATA
     @GetMapping("/pay/success")
     public ModelAndView successPay(@RequestParam("paymentId") String paymentId,
                                    @RequestParam("PayerID") String payerId,

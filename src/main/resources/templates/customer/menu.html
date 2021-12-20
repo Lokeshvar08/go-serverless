@@ -73,6 +73,8 @@
     }
 </style>
 <style th:replace="fragments/nav :: nav-style"></style>
+<input id="dine-id" th:value="${dine.getId()}" hidden>
+<input id="restaurant-id" th:value="${dine.getRestaurantId()}" hidden>
 <div class="main">
   <nav th:replace="fragments/nav :: nav"></nav>
   <div class="container main-content">
@@ -205,6 +207,40 @@
   </div>
 </div>
 <script>
+
+  let stompClient = null;
+  const dine_id = document.getElementById("dine-id").value;
+  const restaurant_id = document.getElementById("restaurant-id").value;
+
+  function connect() {
+
+    let socket = new SockJS('/ws');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, () => {
+      stompClient.subscribe('/user/'+dine_id+"/queue/messages", function (greeting) {
+        showGreeting(JSON.parse(greeting.body).content);
+      });
+    });
+  }
+
+  function disconnect() {
+    if (stompClient !== null) {
+      stompClient.disconnect();
+    }
+  }
+
+  function sendName() {
+    stompClient.send("/app/chat", {}, JSON.stringify({
+      dine: dine_id,
+      restaurant: restaurant_id,
+      message: 'dine'
+    }));
+  }
+
+  function showGreeting() {
+    getOrderedFoodsAndRender()
+  }
+
   let fromMenuAddedItems = [];
 
   const checkout = () => {
@@ -212,6 +248,7 @@
   }
 
   const onLoadFunc = () => {
+    connect();
     getMenu();
     getOrderedFoodsAndRender();
   }
@@ -220,7 +257,7 @@
     fetch("http://localhost:8080/api/customer/get-food-items")
             .then(res => res.json())
             .then(res => {
-              console.log(res);
+              // console.log(res);
               menuRenderer(res);
             })
             .catch(err => console.log(err))
@@ -239,7 +276,7 @@
   window.onload = onLoadFunc
 
   const FoodsRenderer = (res) => {
-    console.log("food items renderer");
+    // console.log("food items renderer");
     const orderedFoods = res.list;
 
     document.querySelector("#all-foods").innerHTML = "";
@@ -281,10 +318,10 @@
   }
 
   const menuRenderer = (res) => {
-    console.log("menu renderer");
+    // console.log("menu renderer");
     const foodItems = res.list;
 
-    console.log(document.querySelector("#menu"))
+    // console.log(document.querySelector("#menu"))
     document.querySelector("#menu").innerHTML = "";
 
     let resOutput = "";
@@ -304,7 +341,7 @@
   }
 
   const addFoodItem = ({id, name, price}) => {
-    console.log(fromMenuAddedItems)
+    // console.log(fromMenuAddedItems)
     fromMenuAddedItems.push({id: id, name: name, price: price});
 
     getMenu();
@@ -312,7 +349,7 @@
   }
 
   const removeFoodItem = (id) => {
-    console.log("remove");
+    // console.log("remove");
     fromMenuAddedItems = fromMenuAddedItems.filter(el => el.id != id);
 
     getMenu();
@@ -320,8 +357,8 @@
   }
 
   const orderTheUnordered = () => {
-    console.log("order the unordered");
-
+    // console.log("order the unordered");
+    sendName();
     let reqList = [];
 
     fromMenuAddedItems.forEach(el => {
@@ -332,7 +369,7 @@
       })
     })
 
-    console.log(reqList);
+    // console.log(reqList);
 
     const url = "http://localhost:8080/api/customer/add-food-items";
     fetch(url, {
@@ -343,10 +380,10 @@
       body: JSON.stringify(reqList)
     })
             .then((res)=> res.json())
-            .then((res)=>{
-              console.log(res);
-              //reload
-              location.reload();
+            .then(()=>{
+              sendName()
+              getOrderedFoodsAndRender()
+              fromMenuAddedItems = []
             })
             .catch(err => console.log(err))
 

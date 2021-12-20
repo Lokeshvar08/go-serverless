@@ -35,13 +35,16 @@
 
         <div class="collapse navbar-collapse justify-content-end" id="navbarColor01">
             <ul class="navbar-nav mr-auto">
-
                 <li class="nav-item" th:unless="${user} or ${dine}">
-                    <a class="nav-link" href="/register">Signup</a>
+                    <a class="nav-link" href="/customer"><i class="fa fa-cutlery" aria-hidden="true"></i>customer</a>
                 </li>
 
                 <li class="nav-item" th:unless="${user} or ${dine}">
-                    <a class="nav-link" href="/login">Login</a>
+                    <a class="nav-link" href="/register"><i class="fa fa-user-plus" aria-hidden="true"></i>Signup</a>
+                </li>
+
+                <li class="nav-item" th:unless="${user} or ${dine}">
+                    <a class="nav-link" href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i>Login</a>
                 </li>
 
                 <th:block th:if="${user}">
@@ -51,31 +54,31 @@
                     <th:block th:switch="${user.role}">
                         <th:block th:case="'ROLE_ADMIN'">
                             <li class="nav-item" >
-                                <a class="nav-link" href="/admin/home">manage</a>
+                                <a class="nav-link" href="/admin/home"><i class="fa cog" aria-hidden="true"></i>manage</a>
                             </li>
                             <li class="nav-item" >
-                                <a class="nav-link" href="/admin/add-employee">create</a>
+                                <a class="nav-link" href="/admin/add-employee"><i class="fa fa-user-plus" aria-hidden="true"></i>create</a>
                             </li>
                         </th:block>
                         <th:block th:case="'ROLE_MANAGER'">
                             <li class="nav-item" >
-                                <a class="nav-link" href="/manager/home">manage</a>
+                                <a class="nav-link" href="/manager/home"><i class="fa fa-cog" aria-hidden="true"></i>manage</a>
                             </li>
                             <li class="nav-item" >
-                                <a class="nav-link" href="/manager/create-employee">create</a>
+                                <a class="nav-link" href="/manager/create-employee"><i class="fa fa-user-plus" aria-hidden="true"></i>create</a>
                             </li>
                         </th:block>
                         <th:block th:case="'ROLE_KITCHEN'">
                             <li class="nav-item" >
-                                <a class="nav-link" href="/kitchen/manage-food">manage</a>
+                                <a class="nav-link" href="/kitchen/manage-food"><i class="fa fa-cog" aria-hidden="true"></i>manage</a>
                             </li>
                             <li class="nav-item" >
-                                <a class="nav-link" href="/kitchen/orders">orders</a>
+                                <a class="nav-link" href="/kitchen/orders"><i class="fa fa-tasks" aria-hidden="true"></i>orders</a>
                             </li>
                         </th:block>
                     </th:block>
                     <li class="nav-item" th:unless="${dine}">
-                        <a class="nav-link" href="/logout">Logout</a>
+                        <a class="nav-link" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
                     </li>
                 </th:block>
             </ul>

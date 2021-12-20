@@ -32,6 +32,20 @@
     table-main{
       margin-top: 5%;
     }
+    .btn-cash{
+        color: #fff;
+        background-color: orange;
+        border-color: orange;
+        box-shadow: rgba(255,165,0, 0.25) 0px 54px 55px, rgba(255,165,0, 0.12) 0px -12px 30px, rgba(255,165,0, 0.12) 0px 4px 6px, rgba(255,165,0, 0.17) 0px 12px 13px, rgba(255,165,0, 0.09) 0px -3px 5px;
+        padding: 12px;
+        width: 40%;
+        font-size: 14pt;
+    }
+
+    .btn-cash:hover {
+        color: #fff;
+        background: rgb(255,140,0);
+    }
 </style>
 <style th:replace="fragments/nav :: nav-style"></style>
 <div class="main">
@@ -65,12 +79,12 @@
         </table>
       </div>
       <div class="row price">
-        <h2 id="bill-total">total price: #400</h2>
+        <h2 id="bill-total" style="color: white;"></h2>
       </div>
       <div class="row pay">
-        <button type="button" onclick="tempFunc()" class="btn btn-dark">Pay with cash</button>
-        <form action="/customer/pay" method="post">
-          <input type="submit" class="btn btn-success" style="margin-top: 15px" value="pay with card">
+        <button type="button" onclick="tempFunc()" class="btn btn-success" style="width: 100%;"><i class="fa fa-money" aria-hidden="true"></i>Pay with cash</button>
+        <form action="/customer/pay" method="post" style="padding: 0;">
+          <button type="submit" class="btn btn-dark" style="margin-top: 15px; width: 100%;"><i class="fa fa-paypal" aria-hidden="true"></i>Pay with paypal</button>
         </form>
       </div>
       <div th:if="${payment}">

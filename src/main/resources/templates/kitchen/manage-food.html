@@ -86,13 +86,13 @@
         </div>
         <div class="col-4">
           <div class="form-group" style="display: flex; justify-content: right;">
-            <button class="btn btn-dark" onclick="addFood()">Add Food</button>
+            <button class="btn btn-dark" onclick="addFood()"><i class="fa fa-plus-square" aria-hidden="true"></i>Add Food</button>
           </div>
         </div>
       </div>
 
-      <div class="row gx-5" style="margin-top: 20px;">
-        <div class="col-5" style="height: 70vh; overflow: scroll;">
+      <div class="row gx-5" style="margin: 2%; margin-top: 20px; ">
+        <div class="col-5" style="height: 70vh; overflow: scroll; padding-left: 0;">
           <table class="table table-hover">
             <thead>
             <tr>
@@ -160,7 +160,7 @@
         <div class="col-2">
 
         </div>
-        <div class="col-5" style="height: 70vh; overflow: scroll;">
+        <div class="col-5" style="height: 70vh; overflow: scroll; padding-right: 0;">
           <table class="table table-hover">
             <thead>
             <tr>
@@ -245,7 +245,7 @@ const menuRenderer = (res) => {
               <th scope="row">${i+1}</th>
               <td>${el.name}</td>
               <td>${el.price}</td>
-              <td> <button onclick="modifyFoodItem(${el.id}, false)" class="btn btn-sml btn-danger">remove</button></td>
+              <td> <button onclick="modifyFoodItem(${el.id}, false)" class="btn btn-sml btn-danger"><i class="fa fa-trash" aria-hidden="true"></i>remove</button></td>
             </tr>`
       })
 
@@ -266,8 +266,8 @@ const menuRenderer = (res) => {
               <td>${el.name}</td>
               <td>${el.price}</td>
               <td class="action-btn-group">
-              <button onclick="modifyFoodItem(${el.id}, true)"class="btn btn-sml btn-success">add</button>
-              <button onclick="deleteFood(${el.id})" class="btn btn-sml btn-danger">remove</button></td>
+              <button onclick="modifyFoodItem(${el.id}, true)"class="btn btn-sml btn-success"><i class="fa fa-plus" aria-hidden="true"></i>add</button>
+              <button onclick="deleteFood(${el.id})" class="btn btn-sml btn-danger"><i class="fa fa-trash" aria-hidden="true"></i>remove</button></td>
             </tr>`
       })
 

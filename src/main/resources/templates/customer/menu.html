@@ -199,12 +199,12 @@
             </table>
           </div>
           <div class="row">
-            <button onclick="orderTheUnordered()" class="btn btn-success">order</button>
+            <button onclick="orderTheUnordered()" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i>order</button>
           </div>
         </div>
       </div>
     <div class="row justify-content-right" style="margin-left: 5%; margin-right: 5%;">
-      <button onclick="checkout()" class="btn btn-dark checkout-btn">checkout</button>
+      <button onclick="checkout()" class="btn btn-dark checkout-btn"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>checkout</button>
     </div>
 
   </div>
@@ -301,7 +301,7 @@
                 </div>
               </td>
               <td>status</td>
-              <td> <button id="unordered-item-${el.id}" onclick="removeFoodItem(${el.id})"class="btn btn-danger">remove</button></td>
+              <td> <button id="unordered-item-${el.id}" onclick="removeFoodItem(${el.id})"class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i>remove</button></td>
             </tr>`
     })
 
@@ -313,7 +313,7 @@
               <td>${el.quantity || 0}</td>
               <td>${el.comment || 'no comments'}</td>
               <td>${el.status || 'status unavailable'}</td>
-              <td> <button class="btn btn-danger" disabled>remove</button></td>
+              <td> <button class="btn btn-danger" disabled><i class="fa fa-trash" aria-hidden="true"></i>remove</button></td>
             </tr>`
     })
 
@@ -333,7 +333,7 @@
               <th scope="row">${i+1}</th>
               <td>${el.name}</td>
               <td>${el.price}</td>
-              <td> <button id="menu-item-${el.id}" onclick="addFoodItem({id: ${el.id}, name: '${el.name}', price: ${el.price}})" class="btn btn-success">Add</button></td>
+              <td> <button id="menu-item-${el.id}" onclick="addFoodItem({id: ${el.id}, name: '${el.name}', price: ${el.price}})" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i>Add</button></td>
             </tr>`
     })
 

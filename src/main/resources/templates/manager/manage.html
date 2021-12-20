@@ -45,14 +45,14 @@
     <div class="row toolbar-body card border-dark mb-3" style="display: flex; flex-direction: row; padding: 1%; margin-left: 5%; margin-right: 5%;">
       <div class="col-3 toolbar-1-body">
         <div id="unique-text-code" class="toolbar-text">Unique Code</div>
-        <button class="btn btn-dark" onclick="CodeToolbarHandler()">Refresh</button>
+        <button class="btn btn-dark" onclick="CodeToolbarHandler()"><i class="fa fa-refresh" aria-hidden="true"></i>Refresh</button>
       </div>
       <div class="col-6 toolbar-2-body">
         <div id="available-dines" class="toolbar-text">Available: 12</div>
         <div id="total-dines" class="toolbar-text">Total: 8</div>
       </div>
       <div class="col-3 toolbar-3-body">
-        <button class="btn btn-dark" onclick="createDine()">create new dine</button>
+        <button class="btn btn-dark" onclick="createDine()"><i class="fa fa-plus-square" aria-hidden="true"></i>create new dine</button>
       </div>
     </div>
     <div class="row">
@@ -133,7 +133,7 @@
                 <th scope="row">${i+1}</th>
                 <td>${el.name}</td>
                 <td>${el.role}</td>
-                <td> <button class="btn btn-danger" onclick="removeUser(${el.id})">remove</button></td>
+                <td> <button class="btn btn-danger" onclick="removeUser(${el.id})"><i class="fa fa-trash" aria-hidden="true"></i>remove</button></td>
               </tr>`
         })
         document.querySelector("#all-users").innerHTML = outString;

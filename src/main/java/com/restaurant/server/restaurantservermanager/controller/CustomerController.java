@@ -3,11 +3,10 @@ package com.restaurant.server.restaurantservermanager.controller;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
-import com.restaurant.server.restaurantservermanager.controller.response.ResponseStatus;
 import com.restaurant.server.restaurantservermanager.model.Customer;
 import com.restaurant.server.restaurantservermanager.model.Dine;
 import com.restaurant.server.restaurantservermanager.model.Transaction;
-import com.restaurant.server.restaurantservermanager.service.InvalidateCustomer;
+import com.restaurant.server.restaurantservermanager.service.UtilityService;
 import com.restaurant.server.restaurantservermanager.service.PaypalService;
 import com.restaurant.server.restaurantservermanager.service.errors.ServiceErrorHandler;
 import com.restaurant.server.restaurantservermanager.service.forms.customer.DineDataClient;
@@ -30,14 +29,14 @@ public class CustomerController {
     private PaypalService paypalService;
 
     @Autowired
-    private InvalidateCustomer invalidateCustomer;
+    private UtilityService utilityService;
 
-    public InvalidateCustomer getInvalidateCustomer() {
-        return invalidateCustomer;
+    public UtilityService getInvalidateCustomer() {
+        return utilityService;
     }
 
-    public void setInvalidateCustomer(InvalidateCustomer invalidateCustomer) {
-        this.invalidateCustomer = invalidateCustomer;
+    public void setInvalidateCustomer(UtilityService utilityService) {
+        this.utilityService = utilityService;
     }
 
 
@@ -162,7 +161,7 @@ public class CustomerController {
             Payment payment = paypalService.executePayment(paymentId, payerId);
             System.out.println("payment executed");
             System.out.println(payment.toJSON());
-            invalidateCustomer.invalidateCustomer(request);
+            utilityService.invalidateCustomer(request);
             if (payment.getState().equals("approved")) {
                 mv.addObject("payment", true);
                 return mv;

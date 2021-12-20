@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,14 +49,14 @@ public class CustomerRestController {
     private TransactionItemService transactionItemService;
 
     @Autowired
-    private InvalidateCustomer invalidateCustomer;
+    private UtilityService utilityService;
 
-    public InvalidateCustomer getInvalidateCustomer() {
-        return invalidateCustomer;
+    public UtilityService getInvalidateCustomer() {
+        return utilityService;
     }
 
-    public void setInvalidateCustomer(InvalidateCustomer invalidateCustomer) {
-        this.invalidateCustomer = invalidateCustomer;
+    public void setInvalidateCustomer(UtilityService utilityService) {
+        this.utilityService = utilityService;
     }
 
     public MailSenderService getMailSenderService() {
@@ -322,28 +321,7 @@ public class CustomerRestController {
                 customer = (Customer) request.getSession().getAttribute("customer");
                 transaction = (Transaction) request.getSession().getAttribute("transaction");
                 if( dine != null && customer != null) {
-                    List<TransactionItem> transactionItemList = transactionItemService.getOrderedFoods(
-                            transaction
-                    );
-                    List<Order> orders = new ArrayList<>();
-                    Integer transactionId = transaction.getId();
-                    double total = 0.0;
-                    for(TransactionItem food: transactionItemList){
-                        if( food.getStatus() == TransactionItem.Status.HAPPY_MEAL ) {
-                            orders.add(
-                                    new Order(
-                                            transactionId,
-                                            food.getId(),
-                                            food.getFood().getName(),
-                                            food.getQuantity(),
-                                            food.getQuantity() * food.getFood().getPrice()
-                                    )
-                            );
-                            total += food.getQuantity() * food.getFood().getPrice();
-                        }
-                    }
-                    transaction.setTotal(total);
-                    transactionService.saveTransaction(transaction);
+                    List<Order> orders = utilityService.computeTransactionItems(transaction);
                     return new ResponseGenericListObject<>(orders, true, "success");
                 } else {
                     request.getSession().invalidate();
@@ -362,7 +340,7 @@ public class CustomerRestController {
     @PostMapping("/checkout")
     public ResponseStatus checkout(HttpServletRequest request) {
         try {
-            invalidateCustomer.invalidateCustomer(request);
+            utilityService.invalidateCustomer(request);
             return new ResponseStatus(true, "success");
         } catch ( Exception e) {
             return new ResponseStatus(false, String.valueOf(e));

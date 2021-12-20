@@ -75,14 +75,28 @@
 <script>
 const onLoadFunc = () => {
   document.querySelector("#order-table").innerHTML = "";
-  document.querySelector("#order-table-main").style.opacity = 0;
+
     fetch("http://localhost:8080/api/kitchen/orders")
       .then(res => res.json())
       .then(res => {
 
       //load the table
         let resData = "";
-        if(res.list.length>0) document.querySelector("#order-table-main").style.opacity = 1;
+        if(res.list.length==0) resData= `
+        <tr class="table-secondary">
+            <th scope="row">-</th>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>
+             -
+            </td>
+            <td>
+              -
+            </td>
+          </tr>
+        `;
         res.list.forEach((el, i) => {
           resData += `<tr class="table-secondary">
             <th scope="row">${i+1}</th>

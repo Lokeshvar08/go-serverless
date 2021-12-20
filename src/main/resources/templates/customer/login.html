@@ -7,6 +7,9 @@
       .form-body{
         height: 90%;
         padding: 20px;
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
       }
       .login-card{
         padding: 20px;
@@ -25,17 +28,23 @@
       }
       h3{
         text-align: center;
+        margin: 0;
       }
-      login-card{
+      .login-card{
         margin-top: 5%;
+        width: 65%;
       }
+      .toolbar-body{
+      width: 65%;
+      }
+
 </style>
 <style th:replace="fragments/nav :: nav-style"></style>
 <div class="main">
   <nav th:replace="fragments/nav :: nav"></nav>
   <div class="form-body col justify-content-center align-items-center">
 
-    <div class="row toolbar-body card" style="display: flex; flex-direction: row; padding: 1%; margin-left: 5%; margin-right: 5%;">
+    <div class="row toolbar-body card border-dark mb-3" style="display: flex; flex-direction: row; padding: 1%; margin-left: 5%; margin-right: 5%;">
       <div class="col toolbar-1-body">
         <h3>dine no: <b th:text="${dine.getNumber()}"></b></h3>
       </div>

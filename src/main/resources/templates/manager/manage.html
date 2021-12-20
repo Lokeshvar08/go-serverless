@@ -13,7 +13,6 @@
         flex-direction: column;
         gap: 10%;
         padding-top: 5%;
-
       }
       .table-main-body{
         padding-left: 5%;
@@ -43,7 +42,7 @@
 <div class="main">
   <nav th:replace="fragments/nav :: nav"></nav>
   <div class="main-content">
-    <div class="row toolbar-body card" style="display: flex; flex-direction: row; padding: 1%; margin-left: 5%; margin-right: 5%;">
+    <div class="row toolbar-body card border-dark mb-3" style="display: flex; flex-direction: row; padding: 1%; margin-left: 5%; margin-right: 5%;">
       <div class="col-3 toolbar-1-body">
         <div id="unique-text-code" class="toolbar-text">Unique Code</div>
         <button class="btn btn-dark" onclick="CodeToolbarHandler()">Refresh</button>

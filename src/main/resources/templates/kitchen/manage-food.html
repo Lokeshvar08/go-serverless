@@ -110,50 +110,6 @@
               <td>Column content</td>
               <td>Column content</td>
             </tr>
-
-            <tr class="table-primary">
-              <th scope="row">2</th>
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
-            <tr class="table-secondary">
-              <th scope="row">3</th>
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
-            <tr class="table-success">
-              <th scope="row">4</th>
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
-            <tr class="table-danger">
-              <th scope="row">5</th>
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
-            <tr class="table-warning">
-              <th scope="row">6</th>
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
-            <tr class="table-info">
-              <th scope="row">7</th>
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
-            <tr class="table-light">
-              <th scope="row">8</th>
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
-
             </tbody>
           </table>
         </div>
@@ -180,23 +136,6 @@
               <td>Column content</td>
               <td>Column content</td>
             </tr>
-            <tr class="table-primary">
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
-            <tr class="table-secondary">
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
-            <tr class="table-success">
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
-
-
             </tbody>
           </table>
         </div>
@@ -266,7 +205,7 @@ const menuRenderer = (res) => {
               <td>${el.name}</td>
               <td>${el.price}</td>
               <td class="action-btn-group">
-              <button onclick="modifyFoodItem(${el.id}, true)"class="btn btn-sml btn-success"><i class="fa fa-plus" aria-hidden="true"></i>add</button>
+              <button onclick="modifyFoodItem(${el.id}, true)"class="btn btn-sml btn-success" style="margin-right: 5%;"><i class="fa fa-plus" aria-hidden="true"></i>add</button>
               <button onclick="deleteFood(${el.id})" class="btn btn-sml btn-danger"><i class="fa fa-trash" aria-hidden="true"></i>remove</button></td>
             </tr>`
       })

@@ -320,6 +320,9 @@ public class CustomerRestController {
                 dine = (Dine) request.getAttribute("dine");
                 customer = (Customer) request.getSession().getAttribute("customer");
                 transaction = (Transaction) request.getSession().getAttribute("transaction");
+                if( transaction == null ) {
+                    return new ResponseStatus(true, "no transaction");
+                }
                 if( dine != null && customer != null) {
                     List<Order> orders = utilityService.computeTransactionItems(transaction);
                     return new ResponseGenericListObject<>(orders, true, "success");

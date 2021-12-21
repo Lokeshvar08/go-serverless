@@ -14,14 +14,13 @@
     }
     .main{
         height: 100%;
-        overflow: hidden;
+
       }
       .main-content{
         height: 100%;
         display: flex;
         flex-direction: column;
-        gap: 10%;
-        padding-top: 5%;
+        padding-top: 2%;
       }
 
     .container{
@@ -64,10 +63,29 @@
         overflow: auto;
       }
 
-     .toolbar-text{
-      display: flex;
-      align-items: center;
-    }
+    .table-main-body{
+        padding-left: 5%;
+        padding-right: 5%;
+        height: 50vh;
+        overflow: auto;
+      }
+      .toolbar-1-body{
+         display: flex;
+         justify-content: space-around;
+      }
+       .toolbar-2-body{
+         display: flex;
+         justify-content: space-around;
+      }
+       .toolbar-3-body{
+         display: flex;
+         justify-content: space-around;
+      }
+      .toolbar-text{
+        display: flex;
+        align-items: center;
+      }
+
     h3{
       text-align: center;
       margin: 0
@@ -82,10 +100,10 @@
 
     <div class="row toolbar-body card border-dark mb-3" style="display: flex; flex-direction: row; padding: 1%; margin-left: 5%; margin-right: 5%;">
       <div class="col-2 toolbar-1-body">
-        <h3>dine no: <b th:text="${dine.getNumber()}"></b></h3>
+        <div class="toolbar-text">dine no: <th:block th:text="${dine.getNumber()}"></th:block></div>
       </div>
       <div class="col-8 toolbar-2-body">
-        <h3>customer: <b th:text="${dine.getCustomer()}"></b></h3>
+        <div class="toolbar-text">customer: <th:block th:text="${dine.getCustomer()}"></th:block></div>
       </div>
       <div class="col-2 toolbar-3-body">
         <button onclick="checkout()" class="btn btn-dark checkout-btn"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i>checkout</button>

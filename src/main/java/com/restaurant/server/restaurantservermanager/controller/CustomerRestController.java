@@ -137,7 +137,7 @@ public class CustomerRestController {
                             sendMail.getEmail(),
                             "OTP: " + random,
                             dine.getRestaurant().getName() + ": Dine OTP");
-                    return new ResponseStatus( true, "otp sent: "+random);
+                    return new ResponseStatus( true, "otp sent");
                 } else {
                     request.getSession().invalidate();
                     throw new ServiceErrorHandler("session not valid: dine is null");

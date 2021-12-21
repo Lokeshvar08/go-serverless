@@ -127,21 +127,23 @@ public class HomeController {
         String unicode = request.getParameter("unicode");
         String number = request.getParameter("number");
         User user = userService.findUserByUsername(username);
-        Integer random_code = user.getRestaurant().getRandom_code();
-        if( random_code != null && random_code == Integer.parseInt(unicode)) {
-            Dine dine = dineService.getAvailableDineByNumberAndRestaurant(
-                    Integer.parseInt(number), user.getRestaurant());
-            if(dine != null ){
-                HttpSession session = request.getSession();
-                session.setAttribute("dine", dine);
-                mv.setViewName("redirect:/customer/login");
-                mv.addObject("dine", dine);
-                return mv;
+        if( user != null ) {
+            Integer random_code = user.getRestaurant().getRandom_code();
+            if (random_code != null && random_code == Integer.parseInt(unicode)) {
+                Dine dine = dineService.getAvailableDineByNumberAndRestaurant(
+                        Integer.parseInt(number), user.getRestaurant());
+                if (dine != null) {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("dine", dine);
+                    mv.setViewName("redirect:/customer/login");
+                    mv.addObject("dine", dine);
+                    return mv;
+                }
             }
         }
 
         mv.setViewName("customer/register");
-        mv.addObject("error", "dine not available");
+        mv.addObject("error", "user / dine not available");
         return mv;
     }
 

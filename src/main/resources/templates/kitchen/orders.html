@@ -93,7 +93,10 @@
     if (stompClient !== null) {
       stompClient.disconnect();
     }
-    // console.log("Disconnected");
+  }
+
+  window.onbeforeunload = () => {
+    disconnect()
   }
 
   function sendName(dine) {

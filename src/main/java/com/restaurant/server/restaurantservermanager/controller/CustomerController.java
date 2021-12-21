@@ -150,12 +150,11 @@ public class CustomerController {
         return mv;
     }
 
-    //TODO: REDIRECT TO DIFFERENT PAGE | NAVBAR EXPECT DATA
     @GetMapping("/pay/success")
     public ModelAndView successPay(@RequestParam("paymentId") String paymentId,
                                    @RequestParam("PayerID") String payerId,
                                    HttpServletRequest request) {
-        ModelAndView mv = new ModelAndView("customer/bill");
+        ModelAndView mv = new ModelAndView("customer/success-transaction");
         try {
             System.out.println("successPay()");
             Payment payment = paypalService.executePayment(paymentId, payerId);
@@ -164,6 +163,13 @@ public class CustomerController {
             utilityService.invalidateCustomer(request);
             if (payment.getState().equals("approved")) {
                 mv.addObject("payment", true);
+                Dine dine = (Dine)request.getSession().getAttribute("dine");
+                mv.addObject("dine", new DineDataClient(
+                        dine.getId(),
+                        dine.getNumber(),
+                        dine.getRestaurant().getId(),
+                        dine.getRestaurant().getName()
+                ));
                 return mv;
             }
         } catch (PayPalRESTException e) {

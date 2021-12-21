@@ -77,7 +77,6 @@
 
   let stompClient = null;
   const restaurant_id = document.getElementById("restaurant-id").value;
-  console.log(restaurant_id)
 
   function connect() {
     let socket = new SockJS('/ws');
@@ -130,7 +129,7 @@
             <td>${el.comment}</td>
             <td>
                 <div class="form-group">
-                  <select class="form-select" id="status-select-${el.transaction}">
+                  <select class="form-select" id="status-select-${el.transactionItem}">
                     ${el.status == "BEING_PREPARED" ? '<option selected>BEING_PREPARED</option>': '<option>BEING_PREPARED</option>'}
                     ${el.status == "ORDERED"? '<option selected>RECEIVED</option>': '<option>RECEIVED</option>'  }
                     <option>HAPPY_MEAL</option>
@@ -145,7 +144,7 @@
               document.querySelector("#order-table").innerHTML = resData;
 
             })
-            .catch(err => console.log(err))
+            .catch(err => console.log(""+err))
   }
 
 const onLoadFunc = () => {
@@ -158,22 +157,23 @@ window.onload = onLoadFunc
 const updateStatus = (transaction, transactionItem, dine) => {
 
   const url = "http://localhost:8080/api/kitchen/update-transaction-item";
-
+  console.log({transaction, transactionItem, status: document.querySelector(`#status-select-${transactionItem}`).value})
   fetch(url, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
     },
       body: JSON.stringify(
-      {transaction, transactionItem, status: document.querySelector(`#status-select-${transaction}`).value}
+      {transaction, transactionItem, status: document.querySelector(`#status-select-${transactionItem}`).value}
       )
   })
   .then(res=> res.json())
-  .then(()=>{
+  .then((res)=>{
+    console.log(res)
     sendName(dine)
     getOrders()
   })
-  .catch(err => console.log(err))
+  .catch(err => console.log(""+err))
 }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>

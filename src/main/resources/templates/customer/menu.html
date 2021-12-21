@@ -247,23 +247,22 @@
               // console.log(res);
               menuRenderer(res);
             })
-            .catch(err => console.log(err))
+            .catch(err => console.log(""+err))
   }
 
   const getOrderedFoodsAndRender = ()=> {
     fetch("http://localhost:8080/api/customer/get-ordered-food-items")
             .then(res => res.json())
             .then(res => {
-              console.log(res);
+              console.log(""+res);
               FoodsRenderer(res);
             })
-            .catch(err => console.log(err))
+            .catch(err => console.log(""+err))
   }
 
   window.onload = onLoadFunc
 
   const FoodsRenderer = (res) => {
-    // console.log("food items renderer");
     const orderedFoods = res.list;
 
     document.querySelector("#all-foods").innerHTML = "";
@@ -344,8 +343,6 @@
   }
 
   const orderTheUnordered = () => {
-    // console.log("order the unordered");
-    sendName();
     let reqList = [];
 
     fromMenuAddedItems.forEach(el => {
@@ -356,7 +353,7 @@
       })
     })
 
-    // console.log(reqList);
+    console.log(""+reqList);
 
     const url = "http://localhost:8080/api/customer/add-food-items";
     fetch(url, {
@@ -372,7 +369,7 @@
               getOrderedFoodsAndRender()
               fromMenuAddedItems = []
             })
-            .catch(err => console.log(err))
+            .catch(err => console.log(""+err))
 
   }
 </script>

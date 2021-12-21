@@ -4,7 +4,6 @@ public class Message {
     private Integer dine;
     private Integer Restaurant;
     private String message;
-    private String page;
 
     public Integer getDine() {
         return dine;
@@ -30,13 +29,6 @@ public class Message {
         this.message = message;
     }
 
-    public String getPage() {
-        return page;
-    }
-
-    public void setPage(String page) {
-        this.page = page;
-    }
 
     @Override
     public String toString() {
@@ -44,7 +36,6 @@ public class Message {
                 "dine=" + dine +
                 ", Restaurant=" + Restaurant +
                 ", message='" + message + '\'' +
-                ", page='" + page + '\'' +
                 '}';
     }
 }

@@ -43,6 +43,35 @@
 <div class="main">
   <nav th:replace="fragments/nav :: nav"></nav>
   <div th:replace="fragments/toast :: dtoast('failed to launch')"></div>
+
+
+  <div class="toast show my-alert toast-danger" id="toast" role="alert" style="display: none;" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">Food is not added</strong>
+      <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="toast show my-alert toast-success" id="stoast-otp" role="alert" style="display: none;" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">OTP sent</strong>
+      <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="toast show my-alert toast-danger" id="dtoast-otp" role="alert" style="display: none;" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">OTP is not sent</strong>
+      <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+
   <div class="form-body col justify-content-center align-items-center">
     <div class="row toolbar-body card border-dark mb-3" style="display: flex; flex-direction: row; padding: 1%; margin-left: 5%; margin-right: 5%;">
       <div class="col toolbar-1-body">
@@ -96,6 +125,8 @@
       .then((res)=>{
         console.log(res.status);
         console.log(res.reason);
+        if(res.status) document.querySelector('#stoast-otp').style.display = 'block';
+        else document.querySelector('#dtoast-otp').style.display = 'block';
       })
       .catch(err => console.log(err))
   }
@@ -116,6 +147,8 @@
         console.log(res.status);
         if(res.status){
           window.location.replace('http://localhost:8080/customer/menu');
+        }else{
+          document.querySelector("#toast").style.display = 'block';
         }
       })
       .catch(err => console.log(err))

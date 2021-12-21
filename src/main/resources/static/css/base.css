@@ -28,6 +28,7 @@ table{
     right: 0;
     margin-top: 2%;
     margin-right: 2%;
+    z-index: 9;
 }
 .toast-danger{
     background-color: red !important;

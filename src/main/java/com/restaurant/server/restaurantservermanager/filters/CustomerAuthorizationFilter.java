@@ -27,6 +27,7 @@ public class CustomerAuthorizationFilter extends OncePerRequestFilter {
         if( session.getAttribute("customer") != null ) {
                filterChain.doFilter(request,response);
         } else {
+            request.setAttribute("error", "customer does not exist");
                response.sendRedirect("http://localhost:8080/customer/login");
         }
     }

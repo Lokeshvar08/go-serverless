@@ -37,6 +37,7 @@ public class DineAuthorizationFilter extends OncePerRequestFilter {
             }
         } else {
             session.invalidate();
+            request.setAttribute("error", "dine does not exist");
             response.sendRedirect("http://localhost:8080/customer");
         }
     }

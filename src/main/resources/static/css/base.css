@@ -22,3 +22,19 @@ table{
 .fas{
     margin-right: 5px;
 }
+
+.my-alert{
+    position: absolute;
+    right: 0;
+    margin-top: 2%;
+    margin-right: 2%;
+}
+.toast-danger{
+    background-color: red !important;
+    color: white;
+}
+
+.toast-success{
+    background-color: green !important;
+    color: white;
+}

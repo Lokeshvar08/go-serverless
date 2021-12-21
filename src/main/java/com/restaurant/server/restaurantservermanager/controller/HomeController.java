@@ -82,8 +82,7 @@ public class HomeController {
     @RequestMapping(value = {"/login-error"}, method = RequestMethod.GET)
     public ModelAndView loginPageError(ModelAndView mv) {
         mv.setViewName("auth/login");
-        mv.addObject("loginError", true);
-        mv.addObject("message","invalid username or password");
+        mv.addObject("error","invalid username or password");
         return mv;
     }
 
@@ -106,11 +105,11 @@ public class HomeController {
                     request.getParameter("restaurant_city")
             );
             mv.setStatus(HttpStatus.CREATED);
-            mv.addObject("creation","Restaurant Creation Successful! Login Here...");
+            mv.addObject("success","Restaurant Creation Successful! Login Here...");
             mv.setViewName("auth/login");
         } catch (Exception e) {
             mv.setStatus(HttpStatus.BAD_REQUEST);
-            mv.addObject("creation","failed");
+            mv.addObject("error","invalid credentials");
             mv.setViewName("auth/register");
         }
         return mv;

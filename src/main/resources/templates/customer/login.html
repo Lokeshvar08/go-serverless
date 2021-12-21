@@ -42,8 +42,18 @@
 <style th:replace="fragments/nav :: nav-style"></style>
 <div class="main">
   <nav th:replace="fragments/nav :: nav"></nav>
+  <div class="toast show my-alert toast-danger" role="alert" aria-live="assertive" aria-atomic="true" th:if="${error}">
+    <div class="toast-header">
+      <strong class="me-auto">Failed to launch</strong>
+      <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+    <div class="toast-body" th:text="${error}">
+      invalid creds
+    </div>
+  </div>
   <div class="form-body col justify-content-center align-items-center">
-
     <div class="row toolbar-body card border-dark mb-3" style="display: flex; flex-direction: row; padding: 1%; margin-left: 5%; margin-right: 5%;">
       <div class="col toolbar-1-body">
         <h3>dine no: <b th:text="${dine.getNumber()}"></b></h3>

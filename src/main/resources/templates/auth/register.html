@@ -15,17 +15,7 @@
 <div class="main">
     <nav th:replace="fragments/nav :: nav"></nav>
 
-    <div class="toast show my-alert toast-danger" role="alert" aria-live="assertive" aria-atomic="true" th:if="${error}">
-        <div class="toast-header">
-            <strong class="me-auto">Registration failed</strong>
-            <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true"></span>
-            </button>
-        </div>
-        <div class="toast-body" th:text="${error}">
-            invalid creds
-        </div>
-    </div>
+    <div th:replace="fragments/toast :: dtoast('registration failed')"></div>
     <div class="main-content">
         <div class="form-body row justify-content-center align-items-center" style=" overflow: auto;" >
             <div class="col login-card card border-dark mb-3" style="max-width: 60%">

@@ -69,10 +69,19 @@
     }
 </style>
 <style th:replace="fragments/nav :: nav-style"></style>
+
 <div class="main">
   <nav th:replace="fragments/nav :: nav"></nav>
+  <div class="toast show my-alert toast-danger" id="toast" role="alert" style="display: none;" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">Food is not added</strong>
+      <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
   <div class="container main-content">
-    <div class="col gx-5" style="overflow: hidden;">
+    <div class="col gx-5" style="overflow: hidden; margin-top: 5%">
       <div class="row add-card card" style="display: flex; flex-direction: row; padding: 1%; margin: 2%;">
         <div class="col-4">
           <div class="form-group">
@@ -247,16 +256,23 @@ const menuRenderer = (res) => {
       'Content-Type': 'application/json'
     },
       body: JSON.stringify({name: foodNameEl.value, price:foodPriceEl.value })
-  })
+    })
       .then((res)=> res.json())
       .then((res)=>{
         console.log(res);
 
+        if(!res.status)
+          document.querySelector("#toast").style.display = 'block';
+
         foodNameEl.value = "";
         foodPriceEl.value = "";
-        getFoods()
+        getFoods();
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        console.log(err);
+        console.log("error?");
+
+      })
   }
 
   const deleteFood = (id) => {

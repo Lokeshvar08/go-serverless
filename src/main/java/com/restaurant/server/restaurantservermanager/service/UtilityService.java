@@ -79,19 +79,21 @@ public class UtilityService {
                 customer = (Customer) request.getSession().getAttribute("customer");
                 transaction = (Transaction) request.getSession().getAttribute("transaction");
                 if( dine != null && customer != null) {
-                    transaction.setStatus(false);
                     dine.setStatus(true);
                     dine.setOtp(null);
-                    List<Order> orders = computeTransactionItems(transaction);
-                    OutputStream out = createPDF.export(new ByteArrayOutputStream(),
-                            orders, transaction.getRestaurant().getName());
-                    mailSenderService.sendEmailWithAttachment(
-                            customer.getEmail(),
-                            "Your Transaction in "+ dine.getRestaurant().getName(),
-                            dine.getRestaurant().getName(),
-                            out
-                    );
-                    transactionService.saveTransaction(transaction);
+                    if( transaction != null ) {
+                        transaction.setStatus(false);
+                        List<Order> orders = computeTransactionItems(transaction);
+                        OutputStream out = createPDF.export(new ByteArrayOutputStream(),
+                                orders, transaction.getRestaurant().getName());
+                        mailSenderService.sendEmailWithAttachment(
+                                customer.getEmail(),
+                                "Your Transaction in " + dine.getRestaurant().getName(),
+                                dine.getRestaurant().getName(),
+                                out
+                        );
+                        transactionService.saveTransaction(transaction);
+                    }
                     dineService.updateDine(dine);
                     request.getSession().removeAttribute("transaction");
                     request.getSession().removeAttribute("customer");

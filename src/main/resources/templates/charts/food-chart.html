@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="fragments/header :: head('food chart')">
+</head>
+<body>
+<style>
+  .container{
+    padding-top: 5%;
+    padding-bottom: 5%;
+  }
+
+  .table-num{
+    text-align: center;
+  }
+
+  .price{
+    text-align: right;
+  }
+
+  .pay{
+    margin-top: 50px;
+  }
+
+  .toolbar-text{
+    display: flex;
+    align-items: center;
+  }
+  h3{
+    text-align: center;
+    margin: 0;
+  }
+  table-main{
+    margin-top: 5%;
+  }
+  .btn-cash{
+    color: #fff;
+    background-color: orange;
+    border-color: orange;
+    box-shadow: rgba(255,165,0, 0.25) 0px 54px 55px, rgba(255,165,0, 0.12) 0px -12px 30px, rgba(255,165,0, 0.12) 0px 4px 6px, rgba(255,165,0, 0.17) 0px 12px 13px, rgba(255,165,0, 0.09) 0px -3px 5px;
+    padding: 12px;
+    width: 40%;
+    font-size: 14pt;
+  }
+
+  .btn-cash:hover {
+    color: #fff;
+    background: rgb(255,140,0);
+  }
+</style>
+<style th:replace="fragments/nav :: nav-style"></style>
+<div class="main">
+  <nav th:replace="fragments/nav :: nav"></nav>
+  <div class="container main-content">
+    <div id="chartContainer" style="height: 370px; width: 100%;">
+    </div>
+  </div>
+
+
+</div>
+<script>
+  const getData = () => {
+
+    fetch("http://localhost:8080/api/admin/chart/food/2021-12-01/2022-01-01", {
+      method: 'GET'
+    }).then(res => res.json())
+            .then(res => {
+              chartRender(res)
+            }).catch(err => console.log("" + err))
+  }
+
+
+  const chartRender = (data) => {
+    var yValue;
+    var label;
+    var dps = [[]];
+    var chart = new CanvasJS.Chart("chartContainer", {
+      theme: "dark2", // "light1", "light2", "dark1"
+      animationEnabled: true,
+      title: {
+        text: "Food Sale Chart"
+      },
+      axisY: {
+        title: "sales count",
+        includeZero: true,
+        prefix: "numbers",
+        suffix: ""
+      },
+      data: [{
+        type: "bar",
+        yValueFormatString: "$#,##0.0bn",
+        indexLabel: "{y}",
+        dataPoints: dps[0]
+      }]
+    });
+    data.forEach( (dataPoints,i) => {
+      dataPoints.forEach( datapoint => {
+        yValue = parseFloat(datapoint.y);
+        label = datapoint.label;
+        dps[i].push({
+          label: label,
+          y: yValue
+        });
+      });
+    });
+    chart.render();
+  }
+
+  window.onload = () => {
+    getData()
+  }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+</body>
+</html>

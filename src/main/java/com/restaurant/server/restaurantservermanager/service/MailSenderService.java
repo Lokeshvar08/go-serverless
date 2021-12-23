@@ -1,6 +1,7 @@
 package com.restaurant.server.restaurantservermanager.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.InputStreamSource;
@@ -21,12 +22,15 @@ public class MailSenderService {
     @Autowired
     private JavaMailSender mailSender;
 
+    @Value("${spring.mail.username}")
+    private String fromEmail;
+
     public void sendSimpleEmail(String toEmail,
                                 String body,
                                 String subject) {
         SimpleMailMessage message = new SimpleMailMessage();
 
-        message.setFrom("18tucs249@skct.edu.in");
+        message.setFrom(this.fromEmail);
         message.setTo(toEmail);
         message.setText(body);
         message.setSubject(subject);
@@ -45,7 +49,7 @@ public class MailSenderService {
         MimeMessageHelper mimeMessageHelper
                 = new MimeMessageHelper(mimeMessage, true);
 
-        mimeMessageHelper.setFrom("spring.email.from@gmail.com");
+        mimeMessageHelper.setFrom(this.fromEmail);
         mimeMessageHelper.setTo(toEmail);
         mimeMessageHelper.setText(body);
         mimeMessageHelper.setSubject(subject);

@@ -116,4 +116,24 @@ public class AdminController {
         }
         return mv;
     }
+
+    @GetMapping("/chart")
+    public ModelAndView getFoodChart(ModelAndView mv) {
+        try {
+            User user = authenticatedUser.getAuthenticatedUserObject();
+            mv.addObject("user", new AuthenticatedUserClient(
+                    user.getId(),
+                    user.getUsername(),
+                    user.getName(),
+                    user.getRole().toString(),
+                    user.getRestaurant().getName(),
+                    user.getRestaurant().getId()
+            ));
+            mv.setViewName("charts/food-chart");
+        } catch (Exception e){
+            mv.setViewName("auth/login");
+            mv.addObject("error","invalid");
+        }
+        return mv;
+    }
 }

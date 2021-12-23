@@ -5,10 +5,16 @@ import com.restaurant.server.restaurantservermanager.controller.response.Respons
 import com.restaurant.server.restaurantservermanager.controller.response.ResponseStatus;
 import com.restaurant.server.restaurantservermanager.model.User;
 import com.restaurant.server.restaurantservermanager.security.AuthenticatedUser;
+import com.restaurant.server.restaurantservermanager.service.chart.ChartService;
 import com.restaurant.server.restaurantservermanager.service.user.UserService;
 import com.restaurant.server.restaurantservermanager.service.forms.user.UpdateUserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -19,6 +25,9 @@ public class AdminRestController {
 
     @Autowired
     private AuthenticatedUser authenticatedUser;
+
+    @Autowired
+    private ChartService chartService;
 
     public UserService getUserService() {
         return userService;
@@ -34,6 +43,14 @@ public class AdminRestController {
 
     public void setAuthenticatedUser(AuthenticatedUser authenticatedUser) {
         this.authenticatedUser = authenticatedUser;
+    }
+
+    public ChartService getChartService() {
+        return chartService;
+    }
+
+    public void setChartService(ChartService chartService) {
+        this.chartService = chartService;
     }
 
     @GetMapping("/employees")
@@ -85,6 +102,24 @@ public class AdminRestController {
             userService.deleteUserByIdAndRestaurantByAdmin(Integer.parseInt(user), auth.getRestaurant());
             return new ResponseStatus(true, "success");
         } catch( Exception e) {
+            error = String.valueOf(e);
+        }
+        return new ResponseStatus(false, error);
+    }
+
+    @GetMapping("/chart/food/{from}/{to}")
+    public ResponseStatus getFoodChart(@PathVariable String from,
+                                                        @PathVariable String to) throws ParseException {
+        String error = "";
+        User auth;
+        try {
+            SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+            auth = authenticatedUser.getAuthenticatedUserObject();
+            return new ResponseGenericObject<>(
+                    chartService.getFoodChart(date.parse(from), date.parse(to), auth.getRestaurant()) ,
+                    true,
+                    "success");
+        } catch (Exception e) {
             error = String.valueOf(e);
         }
         return new ResponseStatus(false, error);

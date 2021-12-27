@@ -113,6 +113,10 @@
 </div>
 <script>
   const sendEmail = () =>{
+    if(document.querySelector("#email").value.trim().length == 0){
+      alert("invalid email");
+      return;
+    }
     const email = document.querySelector("#email").value;
     fetch("http://localhost:8080/api/customer/send-otp", {
     method: 'POST',
@@ -132,8 +136,14 @@
   }
 
   const onLaunch = () => {
+
     const email = document.querySelector("#email").value;
     const otp = document.querySelector("#otp").value;
+
+    if(email.trim().length == 0 || otp.trim().length == 0){
+      alert("invalid email/otp");
+      return;
+    }
 
     fetch("http://localhost:8080/api/customer/validate-customer", {
     method: 'POST',

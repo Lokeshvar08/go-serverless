@@ -154,7 +154,7 @@
 </div>
 <script>
 
-  const onLoadFunc = () => {
+const onLoadFunc = () => {
   getFoods();
   getMenu();
 }
@@ -249,6 +249,11 @@ const menuRenderer = (res) => {
     const foodPriceEl = document.querySelector("#food-price");
 
     console.log({name: foodNameEl.value, price:foodPriceEl.value });
+
+    if(foodNameEl.value.trim().length==0 || !foodPriceEl.value){
+      alert("invalid inputs")
+      return;
+    }
 
     fetch("http://localhost:8080/api/kitchen/food-create", {
     method: 'POST',

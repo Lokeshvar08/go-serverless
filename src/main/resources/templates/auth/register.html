@@ -27,32 +27,32 @@
                         <fieldset>
                             <div class="form-group">
                                 <label for="username" class="form-label mt-4">Username</label>
-                                <input type="text" name ="username" class="form-control" id="username" placeholder="Enter hotel username">
+                                <input type="text" name ="username" class="form-control" id="username" placeholder="Enter hotel username"  required>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1" class="form-label mt-4">Password</label>
-                                <input type="password" name ="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                <input type="password" name ="password" class="form-control" id="exampleInputPassword1" placeholder="Password"  required minlength="6">
                             </div>
 
                             <div class="form-group">
                                 <label for="name" class="form-label mt-4">Full name</label>
-                                <input type="text" name ="name" class="form-control" id="name" placeholder="Enter full name">
+                                <input type="text" name ="name" class="form-control" id="name" placeholder="Enter full name" required>
                             </div>
                             <div class="form-group">
-                                <label for="phoneNum" class="form-label mt-4">Phone Number</label>
-                                <input type="text" name ="phone" class="form-control" id="phoneNum" placeholder="Enter phone number">
+                                <label for="phoneNum" class="form-label mt-4" >Phone Number</label>
+                                <input type="tel" name ="phone" class="form-control" id="phoneNum" placeholder="Enter phone number" pattern="[0-9]*" required>
                             </div>
                             <div class="form-group">
                                 <label for="resName" class="form-label mt-4">Restaurant Name</label>
-                                <input type="text" name ="restaurant_name" class="form-control" id="resName" placeholder="Enter Restaurant name">
+                                <input type="text" name ="restaurant_name" class="form-control" id="resName" placeholder="Enter Restaurant name" required>
                             </div>
                             <div class="form-group">
                                 <label for="resBranch" class="form-label mt-4">Restaurant branch</label>
-                                <input type="text" name ="restaurant_branch" class="form-control" id="resBranch" placeholder="Enter Restaurant branch">
+                                <input type="text" name ="restaurant_branch" class="form-control" id="resBranch" placeholder="Enter Restaurant branch" required>
                             </div>
                             <div class="form-group">
                                 <label for="resCity" class="form-label mt-4">Restaurant city</label>
-                                <input type="text" name ="restaurant_city" class="form-control" id="resCity" placeholder="Enter restaurant city">
+                                <input type="text" name ="restaurant_city" class="form-control" id="resCity" placeholder="Enter restaurant city" required>
                             </div>
 
                             <p th:if="${creation}" style="{color: black}" class="alert-danger">Creation Failed!</p>
